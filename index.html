@@ -4,12 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>PXZ 的博客</title>
-
+  <meta name="description" content="PXZ 的个人博客，记录软件工具、系统折腾、图形化界面、效率方案与内容创作。" />
   <style>
+    :root {
+      --bg: #0b0b0b;
+      --panel: #141414;
+      --panel-2: #1a1a1a;
+      --line: #2a2a2a;
+      --text: #f5f5f5;
+      --text-2: #b9b9b9;
+      --text-3: #8a8a8a;
+      --red: #d6001c;
+      --white: #ffffff;
+      --max: 1360px;
+      --radius: 18px;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    }
+
     * {
+      box-sizing: border-box;
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
     }
 
     html {
@@ -17,10 +32,11 @@
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
-      background: #000;
-      color: #fff;
-      line-height: 1.7;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+        "Microsoft YaHei", sans-serif;
+      background: linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+      color: var(--text);
+      line-height: 1.75;
       overflow-x: hidden;
     }
 
@@ -29,650 +45,736 @@
       text-decoration: none;
     }
 
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
     ::selection {
-      background: #e60012;
+      background: var(--red);
       color: #fff;
     }
 
-    .page {
-      min-height: 100vh;
-      background:
-        linear-gradient(120deg, rgba(255,255,255,0.07), transparent 28%),
-        radial-gradient(circle at 80% 10%, rgba(230,0,18,0.22), transparent 28%),
-        #000;
-    }
-
-    header {
-      width: 100%;
-      position: sticky;
-      top: 0;
-      z-index: 99;
-      backdrop-filter: blur(18px);
-      background: rgba(0, 0, 0, 0.82);
-      border-bottom: 1px solid rgba(255,255,255,0.14);
-    }
-
-    .nav {
-      max-width: 1180px;
+    .site-shell {
+      max-width: var(--max);
       margin: 0 auto;
-      padding: 18px 24px;
+      padding: 18px 20px 48px;
+    }
+
+    .topbar {
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
+      gap: 18px;
+      min-height: 74px;
+      padding: 0 18px;
+      background: rgba(20, 20, 20, 0.92);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      position: sticky;
+      top: 14px;
+      z-index: 50;
+      backdrop-filter: blur(8px);
     }
 
-    .logo {
-      font-size: 20px;
-      font-weight: 800;
-      letter-spacing: 2px;
-    }
-
-    .logo span {
-      color: #e60012;
-    }
-
-    .nav-links {
+    .brand {
       display: flex;
-      gap: 24px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.78);
-    }
-
-    .nav-links a {
-      position: relative;
-      transition: 0.25s ease;
-    }
-
-    .nav-links a:hover {
-      color: #fff;
-    }
-
-    .nav-links a::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      bottom: -6px;
-      width: 0;
-      height: 2px;
-      background: #e60012;
-      transition: 0.25s ease;
-    }
-
-    .nav-links a:hover::after {
-      width: 100%;
-    }
-
-    .hero {
-      max-width: 1180px;
-      margin: 0 auto;
-      padding: 98px 24px 80px;
-      display: grid;
-      grid-template-columns: 1.1fr 0.9fr;
-      gap: 56px;
       align-items: center;
+      gap: 18px;
+      min-width: 0;
     }
 
-    .badge {
-      display: inline-flex;
+    .brand-title {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+    }
+
+    .brand-divider {
+      width: 1px;
+      height: 22px;
+      background: var(--line);
+    }
+
+    .brand-sub {
+      color: var(--text-3);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .top-social {
+      display: flex;
       align-items: center;
       gap: 10px;
-      border: 1px solid rgba(255,255,255,0.22);
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.8);
-      margin-bottom: 24px;
-      animation: fadeUp 0.8s ease both;
-    }
-
-    .badge::before {
-      content: "";
-      width: 8px;
-      height: 8px;
-      background: #e60012;
-      border-radius: 50%;
-      box-shadow: 0 0 20px #e60012;
-    }
-
-    h1 {
-      font-size: clamp(42px, 7vw, 86px);
-      line-height: 1.05;
-      letter-spacing: -3px;
-      margin-bottom: 28px;
-      animation: fadeUp 0.8s 0.08s ease both;
-    }
-
-    .red {
-      color: #e60012;
-    }
-
-    .hero-text {
-      max-width: 680px;
-      font-size: 18px;
-      color: rgba(255,255,255,0.78);
-      animation: fadeUp 0.8s 0.16s ease both;
-    }
-
-    .hero-text strong {
-      color: #fff;
-      font-weight: 700;
-    }
-
-    .hero-actions {
-      margin-top: 36px;
-      display: flex;
-      gap: 16px;
       flex-wrap: wrap;
-      animation: fadeUp 0.8s 0.24s ease both;
+      justify-content: flex-end;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 48px;
-      padding: 0 22px;
+    .top-social a {
+      padding: 8px 12px;
+      border: 1px solid var(--line);
       border-radius: 999px;
-      border: 1px solid #fff;
-      font-weight: 700;
-      transition: 0.25s ease;
+      background: #111;
+      color: var(--text-2);
+      font-size: 13px;
+      transition: 0.2s ease;
     }
 
-    .btn.primary {
-      background: #fff;
-      color: #000;
+    .top-social a:hover {
+      border-color: #4a4a4a;
+      color: var(--white);
+      transform: translateY(-1px);
     }
 
-    .btn.primary:hover {
-      background: #e60012;
-      color: #fff;
-      border-color: #e60012;
-      transform: translateY(-3px);
+    .layout {
+      display: grid;
+      grid-template-columns: 330px minmax(0, 1fr);
+      gap: 22px;
+      margin-top: 22px;
     }
 
-    .btn.ghost:hover {
-      color: #e60012;
-      border-color: #e60012;
-      transform: translateY(-3px);
+    .sidebar {
+      position: sticky;
+      top: 104px;
+      align-self: start;
+    }
+
+    .profile-card,
+    .panel {
+      background: linear-gradient(180deg, #181818 0%, #121212 100%);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
     }
 
     .profile-card {
-      position: relative;
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.045);
-      border-radius: 34px;
-      padding: 34px;
-      min-height: 440px;
-      overflow: hidden;
-      animation: fadeIn 1s 0.2s ease both;
-    }
-
-    .profile-card::before {
-      content: "";
-      position: absolute;
-      inset: -1px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.28), transparent 35%, rgba(230,0,18,0.28));
-      opacity: 0.42;
-      pointer-events: none;
-    }
-
-    .profile-inner {
-      position: relative;
-      z-index: 2;
-    }
-
-    .avatar-wrap {
-      width: 142px;
-      height: 142px;
-      border-radius: 50%;
-      border: 2px solid #fff;
-      padding: 5px;
-      margin-bottom: 28px;
-      background: #000;
       overflow: hidden;
     }
 
-    .avatar-wrap img {
+    .profile-top {
+      padding: 30px 24px 22px;
+      background: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .avatar-box {
+      width: 220px;
+      height: 220px;
+      margin: 0 auto 22px;
+      border-radius: 22px;
+      overflow: hidden;
+      border: 1px solid #303030;
+      background: #0f0f0f;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+    }
+
+    .avatar-box img {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
       object-fit: cover;
-      display: block;
     }
 
     .avatar-fallback {
       width: 100%;
       height: 100%;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      font-size: 34px;
-      font-weight: 900;
-      color: #e60012;
-      background: #000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--red);
+      background: #101010;
+      letter-spacing: 4px;
     }
 
-    .profile-card h2 {
+    .profile-name {
       font-size: 34px;
-      margin-bottom: 12px;
-      letter-spacing: -1px;
+      line-height: 1.15;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      text-align: center;
     }
 
-    .profile-card p {
-      color: rgba(255,255,255,0.72);
+    .profile-handle {
+      text-align: center;
+      color: var(--text-2);
       font-size: 15px;
+      margin-bottom: 12px;
     }
 
-    .status {
-      margin-top: 28px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      border-top: 1px solid rgba(255,255,255,0.16);
-      border-bottom: 1px solid rgba(255,255,255,0.16);
-    }
-
-    .status div {
-      padding: 18px 8px;
-      border-right: 1px solid rgba(255,255,255,0.16);
-    }
-
-    .status div:last-child {
-      border-right: none;
-    }
-
-    .status b {
-      display: block;
-      font-size: 22px;
-      color: #fff;
-    }
-
-    .status span {
-      font-size: 12px;
-      color: rgba(255,255,255,0.58);
-    }
-
-    section {
-      max-width: 1180px;
+    .profile-intro {
+      text-align: center;
+      color: var(--text-3);
+      font-size: 14px;
+      max-width: 250px;
       margin: 0 auto;
-      padding: 76px 24px;
+    }
+
+    .profile-links {
+      padding: 18px 16px 20px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .mini-link {
+      padding: 12px 14px;
+      background: #121212;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      font-size: 14px;
+      color: var(--text-2);
+      transition: 0.2s ease;
+    }
+
+    .mini-link:hover {
+      color: var(--white);
+      border-color: #454545;
+      background: #161616;
+    }
+
+    .mini-link strong {
+      color: var(--white);
+      font-weight: 600;
+      display: block;
+      margin-bottom: 2px;
+    }
+
+    .content {
+      min-width: 0;
+      display: grid;
+      gap: 22px;
+    }
+
+    .hero {
+      padding: 34px 34px 28px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,0.025), transparent 35%),
+        radial-gradient(circle at top right, rgba(214,0,28,0.12), transparent 30%);
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--text-3);
+      font-size: 13px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 18px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 36px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .hero h1 {
+      font-size: clamp(34px, 4vw, 62px);
+      line-height: 1.08;
+      letter-spacing: -1.5px;
+      font-weight: 650;
+      margin-bottom: 16px;
+      max-width: 880px;
+    }
+
+    .accent {
+      color: var(--red);
+    }
+
+    .hero-desc {
+      max-width: 920px;
+      color: var(--text-2);
+      font-size: 17px;
+      margin-bottom: 26px;
+    }
+
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .meta-chip {
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      font-size: 13px;
+      color: var(--text-2);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .section {
+      padding: 28px 30px 30px;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 14px;
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid var(--line);
     }
 
     .section-title {
-      margin-bottom: 34px;
-    }
-
-    .section-title span {
-      color: #e60012;
-      font-size: 13px;
-      font-weight: 800;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .section-title h2 {
-      margin-top: 10px;
-      font-size: clamp(30px, 4vw, 48px);
-      letter-spacing: -1.5px;
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-    }
-
-    .card {
-      border: 1px solid rgba(255,255,255,0.16);
-      background: rgba(255,255,255,0.045);
-      border-radius: 26px;
-      padding: 28px;
-      transition: 0.28s ease;
-      min-height: 240px;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-      border-color: #e60012;
-      background: rgba(255,255,255,0.075);
-    }
-
-    .card .num {
-      color: #e60012;
-      font-size: 13px;
-      font-weight: 900;
-      margin-bottom: 18px;
-      display: block;
-    }
-
-    .card h3 {
-      font-size: 22px;
-      margin-bottom: 14px;
-    }
-
-    .card p {
-      color: rgba(255,255,255,0.72);
-      font-size: 15px;
-    }
-
-    .about {
-      display: grid;
-      grid-template-columns: 0.8fr 1.2fr;
-      gap: 30px;
-      align-items: stretch;
-    }
-
-    .quote {
-      border-left: 4px solid #e60012;
-      padding: 28px;
-      background: #fff;
-      color: #000;
-      border-radius: 0 26px 26px 0;
-      font-size: 24px;
-      font-weight: 900;
-      line-height: 1.45;
+      font-size: 28px;
+      line-height: 1.2;
+      font-weight: 650;
       letter-spacing: -0.5px;
     }
 
-    .about-text {
-      border: 1px solid rgba(255,255,255,0.16);
-      border-radius: 26px;
-      padding: 30px;
-      color: rgba(255,255,255,0.76);
-      background: rgba(255,255,255,0.045);
-    }
-
-    .about-text p + p {
-      margin-top: 18px;
-    }
-
-    .social-list {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
-    }
-
-    .social {
-      border: 1px solid rgba(255,255,255,0.18);
-      border-radius: 24px;
-      padding: 24px;
-      background: rgba(255,255,255,0.045);
-      transition: 0.25s ease;
-    }
-
-    .social:hover {
-      transform: translateY(-6px);
-      border-color: #e60012;
-    }
-
-    .social .platform {
+    .section-note {
+      color: var(--text-3);
       font-size: 13px;
-      color: #e60012;
-      font-weight: 900;
-      letter-spacing: 1px;
-      margin-bottom: 10px;
+      white-space: nowrap;
     }
 
-    .social .username {
-      font-size: 22px;
-      font-weight: 800;
+    .intro-text {
+      color: var(--text-2);
+      font-size: 16px;
+    }
+
+    .intro-text p + p {
+      margin-top: 14px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .item-card {
+      background: #141414;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px 18px 16px;
+      transition: 0.2s ease;
+    }
+
+    .item-card:hover {
+      border-color: #404040;
+      background: #171717;
+    }
+
+    .item-index {
+      font-size: 12px;
+      color: var(--red);
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .item-card h3 {
+      font-size: 20px;
+      margin-bottom: 8px;
+      font-weight: 620;
+      line-height: 1.35;
+    }
+
+    .item-card p {
+      color: var(--text-2);
+      font-size: 14px;
+    }
+
+    .project-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .project {
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      gap: 18px;
+      align-items: start;
+      padding: 16px 0;
+      border-bottom: 1px solid #242424;
+    }
+
+    .project:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .project-tag {
+      color: var(--text-3);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding-top: 2px;
+    }
+
+    .project-body h3 {
+      font-size: 18px;
+      font-weight: 620;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .project-body p {
+      color: var(--text-2);
+      font-size: 14px;
+    }
+
+    .social-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .social-card {
+      background: #141414;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 18px;
+      transition: 0.2s ease;
+    }
+
+    .social-card:hover {
+      border-color: #404040;
+      background: #171717;
+    }
+
+    .social-platform {
+      color: var(--text-3);
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 8px;
+    }
+
+    .social-user {
+      font-size: 20px;
+      font-weight: 620;
+      margin-bottom: 6px;
       word-break: break-all;
     }
 
-    .social .desc {
-      margin-top: 10px;
+    .social-desc {
       font-size: 14px;
-      color: rgba(255,255,255,0.62);
+      color: var(--text-2);
     }
 
-    footer {
-      border-top: 1px solid rgba(255,255,255,0.14);
-      padding: 34px 24px;
-      color: rgba(255,255,255,0.56);
-      text-align: center;
-      font-size: 14px;
+    .footer {
+      margin-top: 20px;
+      padding: 18px 4px 0;
+      color: var(--text-3);
+      font-size: 13px;
+      text-align: right;
     }
 
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(26px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: scale(0.96);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    @media (max-width: 920px) {
-      .hero,
-      .about {
+    @media (max-width: 1100px) {
+      .layout {
         grid-template-columns: 1fr;
       }
 
-      .grid,
-      .social-list {
-        grid-template-columns: 1fr;
+      .sidebar {
+        position: static;
       }
 
-      .nav {
-        align-items: flex-start;
-        gap: 18px;
+      .profile-top {
+        padding: 26px 20px 20px;
+      }
+
+      .avatar-box {
+        width: 180px;
+        height: 180px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .site-shell {
+        padding: 14px 12px 34px;
+      }
+
+      .topbar {
+        padding: 14px;
+        border-radius: 16px;
         flex-direction: column;
+        align-items: flex-start;
       }
 
-      .nav-links {
+      .brand {
         flex-wrap: wrap;
-        gap: 14px;
       }
 
-      .profile-card {
-        min-height: auto;
+      .brand-divider {
+        display: none;
+      }
+
+      .top-social {
+        justify-content: flex-start;
+      }
+
+      .hero,
+      .section {
+        padding: 22px 18px;
+      }
+
+      .hero h1 {
+        font-size: 32px;
+      }
+
+      .grid-2,
+      .social-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .project {
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .section-note {
+        white-space: normal;
       }
     }
   </style>
 </head>
-
 <body>
-  <div class="page">
-    <header>
-      <nav class="nav">
-        <div class="logo">PXZ<span>.</span>BLOG</div>
+  <div class="site-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-title">PXZ</div>
+        <div class="brand-divider"></div>
+        <div class="brand-sub">个人博客 · 软件 / 系统 / 工具 / 内容研究</div>
+      </div>
 
-        <div class="nav-links">
-          <a href="#home">首页</a>
-          <a href="#ability">能力结构</a>
-          <a href="#about">关于我</a>
-          <a href="#social">社交账号</a>
-        </div>
+      <nav class="top-social">
+        <a href="#social">社交账号</a>
+        <a href="#projects">代表内容</a>
+        <a href="#about">关于我</a>
       </nav>
     </header>
 
-    <main>
-      <section class="hero" id="home">
-        <div>
-          <div class="badge">个人博客 / 信息检索 / 工具研究 / 创作记录</div>
-
-          <h1>
-            我不只是使用工具，<br />
-            我研究<span class="red">系统如何被解决</span>。
-          </h1>
-
-          <p class="hero-text">
-            这里是 <strong>PXZ 的博客</strong>。我长期关注软件工具、系统设置、图形化界面、问题排查、内容创作与学习效率。
-            我真正擅长的不是记住某个按钮在哪里，而是在复杂、混乱、信息不完整的环境里，持续追踪线索，拆解问题，验证方案，最后把结果变成别人能直接理解和复用的内容。
-          </p>
-
-          <div class="hero-actions">
-            <a class="btn primary" href="#ability">查看我的能力</a>
-            <a class="btn ghost" href="#social">查看社交账号</a>
-          </div>
-        </div>
-
-        <aside class="profile-card">
-          <div class="profile-inner">
-            <div class="avatar-wrap">
-              <img src="avatar.jpg" alt="PXZ 头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
-              <div class="avatar-fallback" style="display:none;">PXZ</div>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="profile-card">
+          <div class="profile-top">
+            <div class="avatar-box">
+              <img src="avatar.jpg" alt="PXZ 头像"
+                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+              <div class="avatar-fallback">PXZ</div>
             </div>
 
-            <h2>PXZ</h2>
-
-            <p>
-              一个专注于 <span class="red">信息检索、工具研究、系统折腾、效率提升</span> 的个人博客。
-              我把看似零散的经验沉淀成清晰的方法，把别人觉得麻烦的问题变成可执行的步骤。
-            </p>
-
-            <div class="status">
-              <div>
-                <b>100+</b>
-                <span>内容投稿</span>
-              </div>
-              <div>
-                <b>1K+</b>
-                <span>B站粉丝</span>
-              </div>
-              <div>
-                <b>10W+</b>
-                <span>播放累计</span>
-              </div>
+            <div class="profile-name">PXZ</div>
+            <div class="profile-handle">@loserfast42</div>
+            <div class="profile-intro">
+              关注软件工具、系统设置、图形化界面与效率方案，
+              也持续记录自己的内容创作与实战经验。
             </div>
           </div>
-        </aside>
-      </section>
 
-      <section id="ability">
-        <div class="section-title">
-          <span>Core Ability</span>
-          <h2>我的核心能力，不是“会用软件”，而是<span class="red">解决问题</span>。</h2>
-        </div>
-
-        <div class="grid">
-          <article class="card">
-            <span class="num">01</span>
-            <h3>信息检索与线索追踪</h3>
-            <p>
-              面对陌生问题时，我习惯从关键词、报错、界面细节、社区讨论和实际验证中不断缩小范围。
-              不是等答案出现，而是主动把答案找出来。
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="num">02</span>
-            <h3>图形化界面与系统研究</h3>
-            <p>
-              我对 Windows、软件设置、工具界面、插件逻辑和工作流有长期兴趣。
-              很多问题在别人眼里只是“卡住了”，但在我这里会被拆成可以测试、可以复现、可以修正的步骤。
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="num">03</span>
-            <h3>把复杂经验讲清楚</h3>
-            <p>
-              我做内容的重点不是炫技，而是降低别人的学习成本。
-              真正有价值的内容，是让别人少走弯路，直接知道该点哪里、该改什么、为什么有效。
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="num">04</span>
-            <h3>软件与网站工具分享</h3>
-            <p>
-              我关注实用软件、浏览器插件、脚本工具、效率网站和系统优化方案。
-              判断一个工具是否值得推荐，不看它包装多好，而看它是否真正解决问题。
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="num">05</span>
-            <h3>内容创作与实战记录</h3>
-            <p>
-              我会把自己的折腾过程、失败经验、解决路径和最终结果整理成视频或文章。
-              这些内容来自真实使用，而不是空泛搬运。
-            </p>
-          </article>
-
-          <article class="card">
-            <span class="num">06</span>
-            <h3>持续试错与执行</h3>
-            <p>
-              我享受不断试错、验证、修正的过程。
-              对我来说，真正重要的不是一次就做对，而是能不能一直追到问题被解决。
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section id="about">
-        <div class="section-title">
-          <span>About</span>
-          <h2>我想做的，是把自己的经验变成<span class="red">可复用的价值</span>。</h2>
-        </div>
-
-        <div class="about">
-          <div class="quote">
-            我相信，真正稀缺的不是知道答案，而是有耐心、有方法、有执行力地把答案找出来。
-          </div>
-
-          <div class="about-text">
-            <p>
-              我过去折腾过很多东西：Windows 设置、软件优化、NVIDIA App、浏览器插件、Telegram 工具、Pixiv 使用方案、视频剪辑流程、系统排错、网页搭建、GitHub Pages 部署，以及各种看似琐碎但实际非常影响体验的问题。
-            </p>
-
-            <p>
-              这些经历看起来分散，但底层其实是一件事：面对一个问题，我会不断搜索、对比、验证、排除错误路径，最后形成一个能让普通人直接使用的方案。
-              这就是我认为最值得沉淀的能力。
-            </p>
-
-            <p>
-              这个博客会记录我的研究、工具、教程、项目和思考。它不是一个装饰性的主页，而是我把能力公开化、作品化、长期化的地方。
-            </p>
+          <div class="profile-links">
+            <a class="mini-link" href="#about">
+              <strong>定位</strong>
+              问题拆解 / 工具研究 / 经验输出
+            </a>
+            <a class="mini-link" href="#ability">
+              <strong>核心方向</strong>
+              系统折腾、工具验证、内容表达
+            </a>
+            <a class="mini-link" href="#social">
+              <strong>社交媒体</strong>
+              Bilibili / YouTube / GitHub / Email
+            </a>
           </div>
         </div>
-      </section>
+      </aside>
 
-      <section id="social">
-        <div class="section-title">
-          <span>Social Media</span>
-          <h2>我的社交媒体账号</h2>
+      <main class="content">
+        <section class="panel hero">
+          <div class="hero-inner">
+            <div class="eyebrow">PXZ / Personal Research Log</div>
+            <h1>
+              我更在意的不是“会不会用”，<br>
+              而是能不能把一个问题<span class="accent">真正解决</span>。
+            </h1>
+            <div class="hero-desc">
+              这个站点用来集中展示我长期关注的方向：软件工具、系统优化、图形化界面、效率方案，以及把复杂问题整理成可以直接复用的内容。
+              我做的事情并不神秘，本质上只有一件：在混乱的信息里找到路径，然后把结果讲清楚。
+            </div>
+            <div class="hero-meta">
+              <div class="meta-chip">系统设置与排障</div>
+              <div class="meta-chip">软件工具研究</div>
+              <div class="meta-chip">内容创作与教程表达</div>
+              <div class="meta-chip">个人经验沉淀</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="panel section" id="about">
+          <div class="section-head">
+            <h2 class="section-title">关于我</h2>
+            <div class="section-note">About</div>
+          </div>
+          <div class="intro-text">
+            <p>
+              我擅长的并不是某一个单点技能，而是一整套解决问题的过程：检索、筛选、验证、排错、复盘，再把这些内容转化成别人也能立刻用上的方案。
+            </p>
+            <p>
+              我长期折腾 Windows、软件设置、浏览器插件、图形化界面、剪辑流程、网站工具和各类效率方案。很多在别人看来“只是卡住了”的问题，在我这里都会被拆成一个个可测试、可复现、可修正的环节。
+            </p>
+            <p>
+              所以这个博客不是单纯的展示页，而是我把自己的经验、能力和作品整理出来的地方。
+            </p>
+          </div>
+        </section>
+
+        <section class="panel section" id="ability">
+          <div class="section-head">
+            <h2 class="section-title">核心方向</h2>
+            <div class="section-note">Core Ability</div>
+          </div>
+
+          <div class="grid-2">
+            <article class="item-card">
+              <div class="item-index">01 / Research</div>
+              <h3>信息检索与问题追踪</h3>
+              <p>
+                面对陌生问题时，我会沿着关键词、报错提示、界面细节、社区反馈与实际结果不断缩小范围，直到找到有效路径。
+              </p>
+            </article>
+
+            <article class="item-card">
+              <div class="item-index">02 / System</div>
+              <h3>系统设置与图形化界面</h3>
+              <p>
+                我对 Windows、软件界面、功能逻辑、使用路径和设置结构非常敏感，很多效率提升其实都来自对界面的深度理解。
+              </p>
+            </article>
+
+            <article class="item-card">
+              <div class="item-index">03 / Tools</div>
+              <h3>工具验证与方案筛选</h3>
+              <p>
+                我不太相信“看起来很好用”，更在意一个工具是否真的稳定、清晰、可落地，是否值得推荐给别人。
+              </p>
+            </article>
+
+            <article class="item-card">
+              <div class="item-index">04 / Output</div>
+              <h3>把经验转成可复用内容</h3>
+              <p>
+                我希望把自己的折腾结果整理成教程、视频或记录，降低别人的学习成本，让复杂过程变成清晰步骤。
+              </p>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel section" id="projects">
+          <div class="section-head">
+            <h2 class="section-title">代表内容</h2>
+            <div class="section-note">Selected Works</div>
+          </div>
+
+          <div class="project-list">
+            <article class="project">
+              <div class="project-tag">Case 01</div>
+              <div class="project-body">
+                <h3>NVIDIA App 修改方案：解决笔记本卡顿问题</h3>
+                <p>
+                  从实际使用出发，研究设置项与运行表现之间的关系，整理出更直接、更可执行的解决路径。
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="project-tag">Case 02</div>
+              <div class="project-body">
+                <h3>Pixiv 全平台优化方案</h3>
+                <p>
+                  围绕搜索体验、热度排序、移动端访问与工具方案做过多轮整理，核心目标是提升使用效率与内容获取质量。
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="project-tag">Case 03</div>
+              <div class="project-body">
+                <h3>Telegram 搜索工具与信息获取方案</h3>
+                <p>
+                  针对检索路径、资源组织与实际体验做系统化梳理，把分散信息整合成相对清晰的使用方法。
+                </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <div class="project-tag">Case 04</div>
+              <div class="project-body">
+                <h3>博客搭建与网页部署实践</h3>
+                <p>
+                  从页面结构、样式组织到 GitHub Pages 部署，逐步把个人表达从内容平台延伸到可长期维护的独立站点。
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="panel section" id="social">
+          <div class="section-head">
+            <h2 class="section-title">社交账号</h2>
+            <div class="section-note">Social Media</div>
+          </div>
+
+          <div class="social-grid">
+            <a class="social-card" href="https://space.bilibili.com/1925680440" target="_blank">
+              <div class="social-platform">Bilibili</div>
+              <div class="social-user">Pxz1148</div>
+              <div class="social-desc">视频内容、工具分享、个人创作记录</div>
+            </a>
+
+            <a class="social-card" href="https://www.youtube.com/@" target="_blank">
+              <div class="social-platform">YouTube</div>
+              <div class="social-user">@loserfast42</div>
+              <div class="social-desc">账号用户名展示，可后续替换为具体频道链接</div>
+            </a>
+
+            <a class="social-card" href="https://github.com/pengxiangzhe" target="_blank">
+              <div class="social-platform">GitHub</div>
+              <div class="social-user">pengxiangzhe</div>
+              <div class="social-desc">项目代码、网页部署与技术实验记录</div>
+            </a>
+
+            <a class="social-card" href="mailto:pxz1148205018@gmail.com">
+              <div class="social-platform">Email</div>
+              <div class="social-user">pxz1148205018@gmail.com</div>
+              <div class="social-desc">联系邮箱</div>
+            </a>
+          </div>
+        </section>
+
+        <div class="footer">
+          © 2026 PXZ · Built for clarity, utility and long-term work.
         </div>
-
-        <div class="social-list">
-          <a class="social" href="https://space.bilibili.com/1925680440" target="_blank">
-            <div class="platform">BILIBILI</div>
-            <div class="username">Pxz1148</div>
-            <div class="desc">视频内容、工具分享、个人创作记录</div>
-          </a>
-
-          <a class="social" href="https://github.com/pengxiangzhe" target="_blank">
-            <div class="platform">GITHUB</div>
-            <div class="username">KILL / pengxiangzhe</div>
-            <div class="desc">项目代码、网页部署、技术实验记录</div>
-          </a>
-
-          <a class="social" href="mailto:pxz1148205018@gmail.com">
-            <div class="platform">GOOGLE / EMAIL</div>
-            <div class="username">pxz1148205018@gmail.com</div>
-            <div class="desc">联系邮箱与账号入口</div>
-          </a>
-        </div>
-      </section>
-    </main>
-
-    <footer>
-      © 2026 PXZ. Built for focus, research and creation.
-    </footer>
+      </main>
+    </div>
   </div>
 </body>
 </html>
