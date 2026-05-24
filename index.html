@@ -3,63 +3,83 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <meta
       name="description"
-      content="一个深色、现代、响应式的个人博客网站，支持 Markdown 文章。"
+      content="Pxz 的个人博客，分享 AI 工具、Windows 系统优化、软件折腾、网站技巧与互联网探索。"
     />
-    <title>拾光笔记 | Personal Blog</title>
+
+    <title>Pxz 的博客</title>
+
     <link rel="preconnect" href="https://cdn.jsdelivr.net" />
     <link rel="preconnect" href="https://unpkg.com" />
+
     <link rel="stylesheet" href="css/styles.css" />
+
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
     <script src="js/app.js" defer></script>
   </head>
+
   <body>
     <div class="noise" aria-hidden="true"></div>
 
     <header class="site-header" data-animate>
       <a class="brand" href="#home" aria-label="返回首页">
-        <span class="brand-mark">S</span>
-        <span>拾光笔记</span>
+        <span class="brand-mark">P</span>
+        <span>Pxz 的博客</span>
       </a>
 
       <nav class="site-nav" aria-label="主导航">
         <a href="#home">首页</a>
-        <a href="#posts">文章</a>
+        <a href="#posts">内容</a>
         <a href="#about">关于</a>
       </nav>
-
-      <a class="icon-link" href="mailto:hello@example.com" aria-label="发送邮件">
-        <i data-lucide="mail"></i>
-      </a>
     </header>
 
     <main>
       <section id="home" class="hero" aria-labelledby="hero-title">
         <canvas id="hero-canvas" aria-hidden="true"></canvas>
+
         <div class="hero-inner">
           <div class="hero-copy" data-animate>
-            <p class="eyebrow">Creative Developer / Writer</p>
-            <h1 id="hero-title">在代码、设计与日常观察之间，写下清醒的慢思考 by Pxz。</h1>
-            <p class="hero-lede">
-              你好，我是 Sam。这个博客记录我对前端工程、产品体验、独立创作和生活节奏的观察。
-              我喜欢把复杂问题拆开，把灵感留下来，也把踩过的坑写成可复用的路标。
+            <p class="eyebrow">
+              AI / Windows / Internet / Tools
             </p>
+
+            <h1 id="hero-title">
+              折腾软件、AI、系统与互联网，并把真正有用的东西分享出来。
+            </h1>
+
+            <p class="hero-lede">
+              我是 Pxz。
+
+              我喜欢研究各种 AI 工具、Windows 系统优化、网站技巧、软件折腾和互联网玩法。
+
+              我擅长从海量信息中找到真正有效的解决方案，并把复杂问题拆解成普通人也能看懂的步骤。
+            </p>
+
             <div class="hero-actions">
               <a class="primary-action" href="#posts">
-                <span>查看文章</span>
+                <span>查看内容</span>
                 <i data-lucide="arrow-right"></i>
               </a>
-              <a class="secondary-action" href="#about">关于我</a>
+
+              <a class="secondary-action" href="#about">
+                关于我
+              </a>
             </div>
           </div>
 
-          <div class="hero-visual" data-animate>
-            <img src="assets/hero-portrait.png" alt="深色工作台插画" />
-            <div class="status-strip" aria-label="当前关注">
+          <div class="hero-visual" data-animate">
+            <img
+              src="assets/hero-portrait.png"
+              alt="Pxz Blog Visual"
+            />
+
+            <div class="status-strip" aria-label="当前状态">
               <span>Now</span>
-              <strong>Building small, useful things.</strong>
+              <strong>Exploring useful things on the Internet.</strong>
             </div>
           </div>
         </div>
@@ -67,10 +87,18 @@
 
       <section id="posts" class="section-block" aria-labelledby="posts-title">
         <div class="section-heading" data-animate>
-          <p class="eyebrow">Latest Writing</p>
-          <h2 id="posts-title">文章列表</h2>
+          <p class="eyebrow">CONTENT</p>
+
+          <h2 id="posts-title">
+            我的内容
+          </h2>
         </div>
-        <div id="post-list" class="post-grid" aria-live="polite"></div>
+
+        <div
+          id="post-list"
+          class="post-grid"
+          aria-live="polite"
+        ></div>
       </section>
 
       <section
@@ -81,33 +109,56 @@
       >
         <a class="back-link" href="#posts">
           <i data-lucide="arrow-left"></i>
-          <span>返回文章列表</span>
+          <span>返回内容列表</span>
         </a>
+
         <article class="article-content">
           <p id="article-meta" class="article-meta"></p>
+
           <h2 id="article-title"></h2>
+
           <div id="article-body" class="markdown-body"></div>
         </article>
       </section>
 
-      <section id="about" class="section-block about-section" aria-labelledby="about-title">
+      <section
+        id="about"
+        class="section-block about-section"
+        aria-labelledby="about-title"
+      >
         <div class="section-heading" data-animate>
-          <p class="eyebrow">About</p>
-          <h2 id="about-title">关于我</h2>
+          <p class="eyebrow">ABOUT</p>
+
+          <h2 id="about-title">
+            关于我
+          </h2>
         </div>
+
         <div class="about-layout">
           <p data-animate>
-            我相信好的表达会让工作更安静，也更有方向。平时我会写一些面向实践的文章：
-            如何组织一个前端项目、怎样做出不打扰用户的交互、以及怎样在长期创作中保持节奏。
+            我长期研究：
+
+            <br /><br />
+
+            • AI 工具与自动化  
+            • Windows 与软件优化  
+            • 网站与互联网技巧  
+            • 高效率信息搜索  
+            • 各种实用工具折腾  
+
+            <br /><br />
+
+            这个博客会持续分享我真正研究过、实践过、能解决问题的内容。
           </p>
-          <div class="about-links" data-animate>
-            <a href="https://github.com/" target="_blank" rel="noreferrer">
+
+          <div class="about-links" data-animate">
+            <a
+              href="https://github.com/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <i data-lucide="github"></i>
               <span>GitHub</span>
-            </a>
-            <a href="mailto:hello@example.com">
-              <i data-lucide="send"></i>
-              <span>Email</span>
             </a>
           </div>
         </div>
@@ -115,7 +166,10 @@
     </main>
 
     <footer class="site-footer">
-      <span>© <span id="year"></span> 拾光笔记</span>
+      <span>
+        © <span id="year"></span> Pxz 的博客
+      </span>
+
       <a href="#home">回到顶部</a>
     </footer>
   </body>
