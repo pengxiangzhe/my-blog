@@ -1,33 +1,14 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta
-    name="description"
-    content="Pxz 的博客：记录 AI 工具、系统优化、软件折腾、信息检索、网站搭建与真实问题解决。"
-  />
-  <title>Pxz 的博客</title>
+  <title>PXZ 的博客</title>
 
   <style>
-    :root {
-      --bg: #050706;
-      --bg-soft: #0b1110;
-      --card: rgba(12, 18, 17, 0.78);
-      --card-strong: rgba(15, 25, 23, 0.92);
-      --green: #39ff9c;
-      --green-soft: rgba(57, 255, 156, 0.16);
-      --red: #ff3155;
-      --red-soft: rgba(255, 49, 85, 0.16);
-      --text: #f3f7f5;
-      --muted: #9aa8a2;
-      --line: rgba(255, 255, 255, 0.1);
-      --shadow: 0 24px 100px rgba(0, 0, 0, 0.45);
-      --radius-xl: 34px;
-      --radius-md: 22px;
-    }
-
     * {
+      margin: 0;
+      padding: 0;
       box-sizing: border-box;
     }
 
@@ -36,49 +17,11 @@
     }
 
     body {
-      margin: 0;
-      font-family:
-        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-        "Segoe UI", "Microsoft YaHei", sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at 20% 0%, rgba(57, 255, 156, 0.13), transparent 34rem),
-        radial-gradient(circle at 85% 18%, rgba(255, 49, 85, 0.13), transparent 32rem),
-        radial-gradient(circle at 50% 100%, rgba(57, 255, 156, 0.08), transparent 30rem),
-        var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      background: #000;
+      color: #fff;
       line-height: 1.7;
       overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -3;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
-      background-size: 46px 46px;
-      mask-image: linear-gradient(to bottom, black, rgba(0,0,0,0.25), transparent);
-      pointer-events: none;
-    }
-
-    body::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      z-index: -2;
-      background:
-        repeating-linear-gradient(
-          0deg,
-          rgba(255,255,255,0.018) 0,
-          rgba(255,255,255,0.018) 1px,
-          transparent 1px,
-          transparent 4px
-        );
-      opacity: 0.26;
-      pointer-events: none;
-      mix-blend-mode: overlay;
     }
 
     a {
@@ -86,923 +29,650 @@
       text-decoration: none;
     }
 
-    .cursor-glow {
-      position: fixed;
-      width: 420px;
-      height: 420px;
-      border-radius: 999px;
-      background: radial-gradient(circle, rgba(57,255,156,0.13), transparent 62%);
-      transform: translate(-50%, -50%);
-      pointer-events: none;
-      z-index: -1;
-      left: 50%;
-      top: 50%;
+    ::selection {
+      background: #e60012;
+      color: #fff;
     }
 
-    .site-header {
+    .page {
+      min-height: 100vh;
+      background:
+        linear-gradient(120deg, rgba(255,255,255,0.07), transparent 28%),
+        radial-gradient(circle at 80% 10%, rgba(230,0,18,0.22), transparent 28%),
+        #000;
+    }
+
+    header {
+      width: 100%;
       position: sticky;
       top: 0;
-      z-index: 50;
+      z-index: 99;
+      backdrop-filter: blur(18px);
+      background: rgba(0, 0, 0, 0.82);
+      border-bottom: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .nav {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 18px 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 18px 7vw;
-      border-bottom: 1px solid var(--line);
-      background: rgba(5, 7, 6, 0.76);
-      backdrop-filter: blur(18px);
     }
 
-    .brand {
+    .logo {
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: 2px;
+    }
+
+    .logo span {
+      color: #e60012;
+    }
+
+    .nav-links {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-      letter-spacing: 0.02em;
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
-      color: #03100a;
-      background:
-        linear-gradient(135deg, var(--green), #d8ffe9);
-      box-shadow:
-        0 0 26px rgba(57, 255, 156, 0.4),
-        inset 0 0 16px rgba(255,255,255,0.38);
-    }
-
-    .site-nav {
-      display: flex;
-      gap: 26px;
-      color: var(--muted);
+      gap: 24px;
       font-size: 14px;
-      font-weight: 700;
+      color: rgba(255,255,255,0.78);
     }
 
-    .site-nav a {
+    .nav-links a {
       position: relative;
-      transition: color 0.2s ease;
+      transition: 0.25s ease;
     }
 
-    .site-nav a::after {
+    .nav-links a:hover {
+      color: #fff;
+    }
+
+    .nav-links a::after {
       content: "";
       position: absolute;
       left: 0;
-      bottom: -8px;
+      bottom: -6px;
       width: 0;
       height: 2px;
-      background: var(--green);
-      transition: width 0.25s ease;
+      background: #e60012;
+      transition: 0.25s ease;
     }
 
-    .site-nav a:hover {
-      color: var(--text);
-    }
-
-    .site-nav a:hover::after {
+    .nav-links a:hover::after {
       width: 100%;
     }
 
     .hero {
-      position: relative;
-      min-height: calc(100vh - 80px);
-      padding: 92px 7vw 84px;
-      display: grid;
-      align-items: center;
-    }
-
-    .hero-inner {
-      max-width: 1240px;
+      max-width: 1180px;
       margin: 0 auto;
+      padding: 98px 24px 80px;
       display: grid;
-      grid-template-columns: 1.04fr 0.96fr;
+      grid-template-columns: 1.1fr 0.9fr;
       gap: 56px;
       align-items: center;
     }
 
-    .kicker {
+    .badge {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 20px;
-      padding: 8px 13px;
-      border: 1px solid rgba(57,255,156,0.24);
+      border: 1px solid rgba(255,255,255,0.22);
+      padding: 8px 14px;
       border-radius: 999px;
-      color: var(--green);
-      background: rgba(57,255,156,0.07);
       font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 24px;
+      animation: fadeUp 0.8s ease both;
     }
 
-    .kicker-dot {
+    .badge::before {
+      content: "";
       width: 8px;
       height: 8px;
-      border-radius: 999px;
-      background: var(--red);
-      box-shadow: 0 0 18px rgba(255,49,85,0.85);
+      background: #e60012;
+      border-radius: 50%;
+      box-shadow: 0 0 20px #e60012;
     }
 
     h1 {
-      margin: 0;
-      max-width: 860px;
-      font-size: clamp(46px, 7vw, 96px);
-      line-height: 0.93;
-      letter-spacing: -0.075em;
+      font-size: clamp(42px, 7vw, 86px);
+      line-height: 1.05;
+      letter-spacing: -3px;
+      margin-bottom: 28px;
+      animation: fadeUp 0.8s 0.08s ease both;
     }
 
-    .gradient-text {
-      background: linear-gradient(90deg, #ffffff, #d6ffe8 42%, var(--green) 68%, var(--red));
-      -webkit-background-clip: text;
-      color: transparent;
+    .red {
+      color: #e60012;
     }
 
-    .hero-lede {
-      max-width: 760px;
-      margin: 30px 0 0;
-      color: #b8c5bf;
-      font-size: 19px;
+    .hero-text {
+      max-width: 680px;
+      font-size: 18px;
+      color: rgba(255,255,255,0.78);
+      animation: fadeUp 0.8s 0.16s ease both;
     }
 
-    .hero-lede strong {
-      color: #ffffff;
-      font-weight: 900;
+    .hero-text strong {
+      color: #fff;
+      font-weight: 700;
     }
 
     .hero-actions {
+      margin-top: 36px;
       display: flex;
+      gap: 16px;
       flex-wrap: wrap;
-      gap: 14px;
-      margin-top: 34px;
+      animation: fadeUp 0.8s 0.24s ease both;
     }
 
     .btn {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      min-height: 50px;
+      min-height: 48px;
       padding: 0 22px;
       border-radius: 999px;
-      font-weight: 900;
-      border: 1px solid var(--line);
-      transition:
-        transform 0.2s ease,
-        border-color 0.2s ease,
-        background 0.2s ease,
-        box-shadow 0.2s ease;
+      border: 1px solid #fff;
+      font-weight: 700;
+      transition: 0.25s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
+    .btn.primary {
+      background: #fff;
+      color: #000;
     }
 
-    .btn-primary {
-      color: #03100a;
-      background: linear-gradient(135deg, var(--green), #e6fff0);
-      box-shadow: 0 18px 50px rgba(57,255,156,0.2);
+    .btn.primary:hover {
+      background: #e60012;
+      color: #fff;
+      border-color: #e60012;
+      transform: translateY(-3px);
     }
 
-    .btn-primary:hover {
-      box-shadow: 0 24px 70px rgba(57,255,156,0.32);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: rgba(255,255,255,0.055);
-    }
-
-    .btn-secondary:hover {
-      border-color: rgba(255,49,85,0.44);
-      background: rgba(255,49,85,0.08);
+    .btn.ghost:hover {
+      color: #e60012;
+      border-color: #e60012;
+      transform: translateY(-3px);
     }
 
     .profile-card {
       position: relative;
-      border-radius: var(--radius-xl);
-      padding: 18px;
-      background:
-        linear-gradient(145deg, rgba(57,255,156,0.18), rgba(255,49,85,0.12)),
-        rgba(255,255,255,0.04);
-      border: 1px solid rgba(255,255,255,0.13);
-      box-shadow: var(--shadow);
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.045);
+      border-radius: 34px;
+      padding: 34px;
+      min-height: 440px;
       overflow: hidden;
-      transform-style: preserve-3d;
-      animation: floatCard 5.8s ease-in-out infinite;
+      animation: fadeIn 1s 0.2s ease both;
     }
 
     .profile-card::before {
       content: "";
       position: absolute;
-      inset: -2px;
-      background:
-        linear-gradient(115deg, transparent 0%, rgba(57,255,156,0.5) 28%, transparent 44%, rgba(255,49,85,0.45) 62%, transparent 80%);
+      inset: -1px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.28), transparent 35%, rgba(230,0,18,0.28));
       opacity: 0.42;
-      animation: borderFlow 5s linear infinite;
-      z-index: 0;
+      pointer-events: none;
     }
 
     .profile-inner {
       position: relative;
-      z-index: 1;
-      border-radius: 28px;
-      overflow: hidden;
-      background: #050706;
-      border: 1px solid rgba(255,255,255,0.08);
+      z-index: 2;
     }
 
     .avatar-wrap {
-      position: relative;
-      aspect-ratio: 16 / 11;
+      width: 142px;
+      height: 142px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      padding: 5px;
+      margin-bottom: 28px;
+      background: #000;
       overflow: hidden;
     }
 
     .avatar-wrap img {
       width: 100%;
       height: 100%;
+      border-radius: 50%;
       object-fit: cover;
       display: block;
-      filter: saturate(0.95) contrast(1.04) brightness(0.9);
-      transform: scale(1.03);
-      transition: transform 0.7s ease, filter 0.7s ease;
     }
 
-    .profile-card:hover img {
-      transform: scale(1.08);
-      filter: saturate(1.08) contrast(1.08) brightness(0.98);
-    }
-
-    .avatar-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        linear-gradient(to top, rgba(5,7,6,0.94), transparent 54%),
-        linear-gradient(135deg, rgba(57,255,156,0.16), transparent 42%),
-        linear-gradient(45deg, transparent 60%, rgba(255,49,85,0.14));
-    }
-
-    .profile-info {
-      position: absolute;
-      left: 22px;
-      right: 22px;
-      bottom: 20px;
-      z-index: 2;
-    }
-
-    .profile-info p {
-      margin: 0;
-      color: var(--green);
-      font-size: 13px;
+    .avatar-fallback {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 34px;
       font-weight: 900;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
+      color: #e60012;
+      background: #000;
     }
 
-    .profile-info h2 {
-      margin: 8px 0 0;
-      font-size: clamp(28px, 4vw, 48px);
-      line-height: 1;
-      letter-spacing: -0.06em;
+    .profile-card h2 {
+      font-size: 34px;
+      margin-bottom: 12px;
+      letter-spacing: -1px;
     }
 
-    .profile-meta {
+    .profile-card p {
+      color: rgba(255,255,255,0.72);
+      font-size: 15px;
+    }
+
+    .status {
+      margin-top: 28px;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
-      background: rgba(255,255,255,0.08);
+      border-top: 1px solid rgba(255,255,255,0.16);
+      border-bottom: 1px solid rgba(255,255,255,0.16);
     }
 
-    .profile-meta div {
-      padding: 18px;
-      background: rgba(8,13,12,0.94);
+    .status div {
+      padding: 18px 8px;
+      border-right: 1px solid rgba(255,255,255,0.16);
     }
 
-    .profile-meta span {
+    .status div:last-child {
+      border-right: none;
+    }
+
+    .status b {
       display: block;
-      color: var(--muted);
+      font-size: 22px;
+      color: #fff;
+    }
+
+    .status span {
       font-size: 12px;
-      margin-bottom: 4px;
+      color: rgba(255,255,255,0.58);
     }
 
-    .profile-meta strong {
-      font-size: 14px;
-    }
-
-    .section {
-      max-width: 1240px;
+    section {
+      max-width: 1180px;
       margin: 0 auto;
-      padding: 84px 7vw;
+      padding: 76px 24px;
     }
 
-    .section-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: end;
-      gap: 24px;
+    .section-title {
       margin-bottom: 34px;
     }
 
-    .eyebrow {
-      margin: 0 0 12px;
-      color: var(--green);
+    .section-title span {
+      color: #e60012;
       font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.18em;
+      font-weight: 800;
+      letter-spacing: 2px;
       text-transform: uppercase;
     }
 
-    h2.section-title {
-      margin: 0;
-      font-size: clamp(36px, 5vw, 74px);
-      line-height: 0.98;
-      letter-spacing: -0.065em;
-    }
-
-    .section-desc {
-      max-width: 420px;
-      margin: 0;
-      color: var(--muted);
-      font-size: 16px;
+    .section-title h2 {
+      margin-top: 10px;
+      font-size: clamp(30px, 4vw, 48px);
+      letter-spacing: -1.5px;
     }
 
     .grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 18px;
+      gap: 20px;
     }
 
     .card {
-      position: relative;
-      min-height: 310px;
-      padding: 26px;
-      border-radius: var(--radius-md);
-      background:
-        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.028));
-      border: 1px solid rgba(255,255,255,0.11);
-      overflow: hidden;
-      box-shadow: 0 18px 70px rgba(0,0,0,0.22);
-      transition:
-        transform 0.25s ease,
-        border-color 0.25s ease,
-        background 0.25s ease;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background:
-        radial-gradient(circle at var(--x, 50%) var(--y, 20%), rgba(57,255,156,0.18), transparent 26rem),
-        radial-gradient(circle at 100% 0%, rgba(255,49,85,0.12), transparent 18rem);
-      opacity: 0;
-      transition: opacity 0.25s ease;
+      border: 1px solid rgba(255,255,255,0.16);
+      background: rgba(255,255,255,0.045);
+      border-radius: 26px;
+      padding: 28px;
+      transition: 0.28s ease;
+      min-height: 240px;
     }
 
     .card:hover {
       transform: translateY(-8px);
-      border-color: rgba(57,255,156,0.35);
-      background:
-        linear-gradient(145deg, rgba(57,255,156,0.09), rgba(255,49,85,0.04));
+      border-color: #e60012;
+      background: rgba(255,255,255,0.075);
     }
 
-    .card:hover::before {
-      opacity: 1;
-    }
-
-    .card-content {
-      position: relative;
-      z-index: 1;
-    }
-
-    .index {
-      display: inline-flex;
-      margin-bottom: 18px;
-      color: var(--red);
+    .card .num {
+      color: #e60012;
       font-size: 13px;
       font-weight: 900;
-      letter-spacing: 0.16em;
+      margin-bottom: 18px;
+      display: block;
     }
 
     .card h3 {
-      margin: 0;
-      font-size: 26px;
-      line-height: 1.16;
-      letter-spacing: -0.04em;
+      font-size: 22px;
+      margin-bottom: 14px;
     }
 
     .card p {
-      margin: 18px 0 0;
-      color: #b7c4be;
-      font-size: 16px;
+      color: rgba(255,255,255,0.72);
+      font-size: 15px;
     }
 
-    .tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 24px;
-    }
-
-    .tag {
-      padding: 7px 11px;
-      border-radius: 999px;
-      color: #dfe8e3;
-      background: rgba(255,255,255,0.07);
-      border: 1px solid rgba(255,255,255,0.1);
-      font-size: 13px;
-      font-weight: 700;
-    }
-
-    .method {
+    .about {
       display: grid;
-      grid-template-columns: 0.9fr 1.1fr;
-      gap: 22px;
+      grid-template-columns: 0.8fr 1.2fr;
+      gap: 30px;
       align-items: stretch;
     }
 
-    .method-panel {
-      padding: 30px;
-      border-radius: var(--radius-xl);
-      background: var(--card-strong);
-      border: 1px solid rgba(255,255,255,0.1);
-      box-shadow: var(--shadow);
-    }
-
-    .method-panel h3 {
-      margin: 0;
-      font-size: 34px;
-      letter-spacing: -0.05em;
-      line-height: 1.05;
-    }
-
-    .method-panel p {
-      margin: 18px 0 0;
-      color: var(--muted);
-    }
-
-    .steps {
-      display: grid;
-      gap: 12px;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 14px;
-      align-items: start;
-      padding: 18px;
-      border-radius: 20px;
-      background: rgba(255,255,255,0.055);
-      border: 1px solid rgba(255,255,255,0.08);
-      transition: transform 0.2s ease, border-color 0.2s ease;
-    }
-
-    .step:hover {
-      transform: translateX(6px);
-      border-color: rgba(57,255,156,0.28);
-    }
-
-    .step-num {
-      display: grid;
-      place-items: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 15px;
-      color: #07100d;
-      background: var(--green);
+    .quote {
+      border-left: 4px solid #e60012;
+      padding: 28px;
+      background: #fff;
+      color: #000;
+      border-radius: 0 26px 26px 0;
+      font-size: 24px;
       font-weight: 900;
+      line-height: 1.45;
+      letter-spacing: -0.5px;
     }
 
-    .step strong {
-      display: block;
-      margin-bottom: 4px;
+    .about-text {
+      border: 1px solid rgba(255,255,255,0.16);
+      border-radius: 26px;
+      padding: 30px;
+      color: rgba(255,255,255,0.76);
+      background: rgba(255,255,255,0.045);
     }
 
-    .step span {
-      color: var(--muted);
+    .about-text p + p {
+      margin-top: 18px;
+    }
+
+    .social-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .social {
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 24px;
+      padding: 24px;
+      background: rgba(255,255,255,0.045);
+      transition: 0.25s ease;
+    }
+
+    .social:hover {
+      transform: translateY(-6px);
+      border-color: #e60012;
+    }
+
+    .social .platform {
+      font-size: 13px;
+      color: #e60012;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .social .username {
+      font-size: 22px;
+      font-weight: 800;
+      word-break: break-all;
+    }
+
+    .social .desc {
+      margin-top: 10px;
+      font-size: 14px;
+      color: rgba(255,255,255,0.62);
+    }
+
+    footer {
+      border-top: 1px solid rgba(255,255,255,0.14);
+      padding: 34px 24px;
+      color: rgba(255,255,255,0.56);
+      text-align: center;
       font-size: 14px;
     }
 
-    .quote {
-      margin-top: 22px;
-      padding: 24px;
-      border-left: 4px solid var(--red);
-      border-radius: 18px;
-      background: rgba(255,49,85,0.08);
-      color: #e6eee9;
-      font-size: 18px;
-      font-weight: 800;
-    }
-
-    .footer {
-      max-width: 1240px;
-      margin: 0 auto;
-      padding: 42px 7vw;
-      display: flex;
-      justify-content: space-between;
-      gap: 24px;
-      color: var(--muted);
-      border-top: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .reveal {
-      opacity: 0;
-      transform: translateY(26px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
-    }
-
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    @keyframes floatCard {
-      0%, 100% {
-        transform: translateY(0) rotateX(0deg);
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(26px);
       }
-      50% {
-        transform: translateY(-12px) rotateX(1.5deg);
+      to {
+        opacity: 1;
+        transform: translateY(0);
       }
     }
 
-    @keyframes borderFlow {
-      0% {
-        transform: translateX(-30%);
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.96);
       }
-      100% {
-        transform: translateX(30%);
+      to {
+        opacity: 1;
+        transform: scale(1);
       }
     }
 
-    @media (max-width: 980px) {
-      .hero-inner,
-      .method {
+    @media (max-width: 920px) {
+      .hero,
+      .about {
         grid-template-columns: 1fr;
       }
 
-      .grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .section-head {
-        display: block;
-      }
-
-      .section-desc {
-        margin-top: 14px;
-      }
-    }
-
-    @media (max-width: 680px) {
-      .site-header {
-        padding: 16px 5vw;
-      }
-
-      .site-nav {
-        gap: 14px;
-        font-size: 13px;
-      }
-
-      .hero {
-        padding: 64px 5vw;
-      }
-
-      .section {
-        padding: 64px 5vw;
-      }
-
-      .grid {
+      .grid,
+      .social-list {
         grid-template-columns: 1fr;
       }
 
-      .profile-meta {
-        grid-template-columns: 1fr;
-      }
-
-      .footer {
+      .nav {
+        align-items: flex-start;
+        gap: 18px;
         flex-direction: column;
-        padding: 32px 5vw;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 14px;
+      }
+
+      .profile-card {
+        min-height: auto;
       }
     }
   </style>
 </head>
 
 <body>
-  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="page">
+    <header>
+      <nav class="nav">
+        <div class="logo">PXZ<span>.</span>BLOG</div>
 
-  <header class="site-header">
-    <a class="brand" href="#home">
-      <span class="brand-mark">P</span>
-      <span>Pxz 的博客</span>
-    </a>
+        <div class="nav-links">
+          <a href="#home">首页</a>
+          <a href="#ability">能力结构</a>
+          <a href="#about">关于我</a>
+          <a href="#social">社交账号</a>
+        </div>
+      </nav>
+    </header>
 
-    <nav class="site-nav">
-      <a href="#home">首页</a>
-      <a href="#work">成果</a>
-      <a href="#method">方法</a>
-      <a href="#about">定位</a>
-    </nav>
-  </header>
-
-  <main>
-    <section id="home" class="hero">
-      <div class="hero-inner">
-        <div class="reveal">
-          <div class="kicker">
-            <span class="kicker-dot"></span>
-            AI · 系统 · 工具 · 信息检索
-          </div>
+    <main>
+      <section class="hero" id="home">
+        <div>
+          <div class="badge">个人博客 / 信息检索 / 工具研究 / 创作记录</div>
 
           <h1>
-            我把复杂问题拆开，
-            <span class="gradient-text">直到它能被解决。</span>
+            我不只是使用工具，<br />
+            我研究<span class="red">系统如何被解决</span>。
           </h1>
 
-          <p class="hero-lede">
-            我是 <strong>Pxz</strong>。这个博客记录我亲自折腾过的工具、系统、网站和 AI 工作流。
-            我关注的不是空泛概念，而是一个问题如何定位、验证、跑通，并整理成别人也能复用的方法。
+          <p class="hero-text">
+            这里是 <strong>PXZ 的博客</strong>。我长期关注软件工具、系统设置、图形化界面、问题排查、内容创作与学习效率。
+            我真正擅长的不是记住某个按钮在哪里，而是在复杂、混乱、信息不完整的环境里，持续追踪线索，拆解问题，验证方案，最后把结果变成别人能直接理解和复用的内容。
           </p>
 
           <div class="hero-actions">
-            <a class="btn btn-primary" href="#work">查看实践成果</a>
-            <a class="btn btn-secondary" href="#method">理解我的方法</a>
+            <a class="btn primary" href="#ability">查看我的能力</a>
+            <a class="btn ghost" href="#social">查看社交账号</a>
           </div>
         </div>
 
-        <aside class="profile-card reveal" aria-label="Pxz 头像与状态">
+        <aside class="profile-card">
           <div class="profile-inner">
             <div class="avatar-wrap">
-              <img src="assets/avatar.jpg" alt="Pxz 的头像" />
-              <div class="profile-info">
-                <p>PXZ BLOG</p>
-                <h2>折腾、验证、沉淀。</h2>
-              </div>
+              <img src="avatar.jpg" alt="PXZ 头像" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" />
+              <div class="avatar-fallback" style="display:none;">PXZ</div>
             </div>
 
-            <div class="profile-meta">
+            <h2>PXZ</h2>
+
+            <p>
+              一个专注于 <span class="red">信息检索、工具研究、系统折腾、效率提升</span> 的个人博客。
+              我把看似零散的经验沉淀成清晰的方法，把别人觉得麻烦的问题变成可执行的步骤。
+            </p>
+
+            <div class="status">
               <div>
-                <span>Focus</span>
-                <strong>AI 工具链</strong>
+                <b>100+</b>
+                <span>内容投稿</span>
               </div>
               <div>
-                <span>Skill</span>
-                <strong>信息定位</strong>
+                <b>1K+</b>
+                <span>B站粉丝</span>
               </div>
               <div>
-                <span>Output</span>
-                <strong>实用教程</strong>
+                <b>10W+</b>
+                <span>播放累计</span>
               </div>
             </div>
           </div>
         </aside>
-      </div>
-    </section>
+      </section>
 
-    <section id="work" class="section">
-      <div class="section-head reveal">
-        <div>
-          <p class="eyebrow">Verified Work</p>
-          <h2 class="section-title">我折腾过的东西</h2>
+      <section id="ability">
+        <div class="section-title">
+          <span>Core Ability</span>
+          <h2>我的核心能力，不是“会用软件”，而是<span class="red">解决问题</span>。</h2>
         </div>
-        <p class="section-desc">
-          这里不放模板文章，只放我真正关注、实践、研究过的方向。
-          每一项都对应真实问题，而不是为了显得高级。
-        </p>
-      </div>
 
-      <div class="grid">
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">01 / 网站搭建</span>
-            <h3>跑通 GitHub Pages，搭出自己的个人博客</h3>
+        <div class="grid">
+          <article class="card">
+            <span class="num">01</span>
+            <h3>信息检索与线索追踪</h3>
             <p>
-              从建仓库、上传文件、配置 Pages、排查 404，到最终上线，我完整走通了一遍静态网站发布流程。
+              面对陌生问题时，我习惯从关键词、报错、界面细节、社区讨论和实际验证中不断缩小范围。
+              不是等答案出现，而是主动把答案找出来。
             </p>
-            <div class="tags">
-              <span class="tag">GitHub</span>
-              <span class="tag">Pages</span>
-              <span class="tag">部署</span>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">02 / AI 实践</span>
-            <h3>用 Agent 和 AI 工具辅助写代码、改网页、做项目</h3>
+          <article class="card">
+            <span class="num">02</span>
+            <h3>图形化界面与系统研究</h3>
             <p>
-              我正在把 AI 当成执行工具：生成页面、修改结构、解释报错、拆解任务，把想法推进成能运行的东西。
+              我对 Windows、软件设置、工具界面、插件逻辑和工作流有长期兴趣。
+              很多问题在别人眼里只是“卡住了”，但在我这里会被拆成可以测试、可以复现、可以修正的步骤。
             </p>
-            <div class="tags">
-              <span class="tag">Agent</span>
-              <span class="tag">AI 编程</span>
-              <span class="tag">自动化</span>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">03 / 系统优化</span>
-            <h3>研究 Windows、NVIDIA App、驱动与性能问题</h3>
+          <article class="card">
+            <span class="num">03</span>
+            <h3>把复杂经验讲清楚</h3>
             <p>
-              我会长期关注系统卡顿、软件设置、缓存清理、驱动配置和实际体验优化，并把有效方案整理出来。
+              我做内容的重点不是炫技，而是降低别人的学习成本。
+              真正有价值的内容，是让别人少走弯路，直接知道该点哪里、该改什么、为什么有效。
             </p>
-            <div class="tags">
-              <span class="tag">Windows</span>
-              <span class="tag">NVIDIA</span>
-              <span class="tag">性能</span>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">04 / 软件折腾</span>
-            <h3>研究 Telegram 搜索、Pixiv 热度搜索和油猴脚本</h3>
+          <article class="card">
+            <span class="num">04</span>
+            <h3>软件与网站工具分享</h3>
             <p>
-              我习惯顺着一个具体需求往下挖：找项目、看限制、试替代方案，直到找到能稳定使用的路径。
+              我关注实用软件、浏览器插件、脚本工具、效率网站和系统优化方案。
+              判断一个工具是否值得推荐，不看它包装多好，而看它是否真正解决问题。
             </p>
-            <div class="tags">
-              <span class="tag">Telegram</span>
-              <span class="tag">Pixiv</span>
-              <span class="tag">脚本</span>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">05 / 下载避坑</span>
-            <h3>总结假下载、捆绑安装、恶意按钮的识别方法</h3>
+          <article class="card">
+            <span class="num">05</span>
+            <h3>内容创作与实战记录</h3>
             <p>
-              我关注普通人最容易踩的坑：下载站按钮真假、安装包来源、残留清理、注册表和卸载工具。
+              我会把自己的折腾过程、失败经验、解决路径和最终结果整理成视频或文章。
+              这些内容来自真实使用，而不是空泛搬运。
             </p>
-            <div class="tags">
-              <span class="tag">安全</span>
-              <span class="tag">下载</span>
-              <span class="tag">避坑</span>
-            </div>
-          </div>
-        </article>
+          </article>
 
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">06 / 信息检索</span>
-            <h3>从混乱信息里找到真正有效的解决方案</h3>
+          <article class="card">
+            <span class="num">06</span>
+            <h3>持续试错与执行</h3>
             <p>
-              我最核心的能力是搜索、判断、整合和试错。把杂乱线索变成清晰路径，是我最擅长的事。
+              我享受不断试错、验证、修正的过程。
+              对我来说，真正重要的不是一次就做对，而是能不能一直追到问题被解决。
             </p>
-            <div class="tags">
-              <span class="tag">搜索</span>
-              <span class="tag">判断</span>
-              <span class="tag">解决问题</span>
-            </div>
-          </div>
-        </article>
-      </div>
-    </section>
+          </article>
+        </div>
+      </section>
 
-    <section id="method" class="section">
-      <div class="method">
-        <div class="method-panel reveal">
-          <p class="eyebrow">Method</p>
-          <h3>我的方法不是玄学，而是一套可重复的问题处理流程。</h3>
-          <p>
-            我不会只停留在“我觉得有用”。我更看重：能不能复现，能不能解释，能不能让别人照着做。
-          </p>
+      <section id="about">
+        <div class="section-title">
+          <span>About</span>
+          <h2>我想做的，是把自己的经验变成<span class="red">可复用的价值</span>。</h2>
+        </div>
 
+        <div class="about">
           <div class="quote">
-            搜索不是复制答案，而是把线索组织成解决方案。
+            我相信，真正稀缺的不是知道答案，而是有耐心、有方法、有执行力地把答案找出来。
+          </div>
+
+          <div class="about-text">
+            <p>
+              我过去折腾过很多东西：Windows 设置、软件优化、NVIDIA App、浏览器插件、Telegram 工具、Pixiv 使用方案、视频剪辑流程、系统排错、网页搭建、GitHub Pages 部署，以及各种看似琐碎但实际非常影响体验的问题。
+            </p>
+
+            <p>
+              这些经历看起来分散，但底层其实是一件事：面对一个问题，我会不断搜索、对比、验证、排除错误路径，最后形成一个能让普通人直接使用的方案。
+              这就是我认为最值得沉淀的能力。
+            </p>
+
+            <p>
+              这个博客会记录我的研究、工具、教程、项目和思考。它不是一个装饰性的主页，而是我把能力公开化、作品化、长期化的地方。
+            </p>
           </div>
         </div>
+      </section>
 
-        <div class="steps reveal">
-          <div class="step">
-            <div class="step-num">1</div>
-            <div>
-              <strong>定位问题</strong>
-              <span>先确认问题到底发生在哪里，而不是直接乱试。</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">2</div>
-            <div>
-              <strong>搜索线索</strong>
-              <span>使用不同关键词、平台和来源，找到可能有效的信息。</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">3</div>
-            <div>
-              <strong>交叉判断</strong>
-              <span>对比多个方案，排除营销、过期内容和无效教程。</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">4</div>
-            <div>
-              <strong>动手验证</strong>
-              <span>真正运行、测试、排错，而不是只停留在收藏。</span>
-            </div>
-          </div>
-
-          <div class="step">
-            <div class="step-num">5</div>
-            <div>
-              <strong>整理输出</strong>
-              <span>把过程压缩成清晰步骤，降低后来者的学习成本。</span>
-            </div>
-          </div>
+      <section id="social">
+        <div class="section-title">
+          <span>Social Media</span>
+          <h2>我的社交媒体账号</h2>
         </div>
-      </div>
-    </section>
 
-    <section id="about" class="section">
-      <div class="section-head reveal">
-        <div>
-          <p class="eyebrow">Positioning</p>
-          <h2 class="section-title">这个博客的定位</h2>
+        <div class="social-list">
+          <a class="social" href="https://space.bilibili.com/1925680440" target="_blank">
+            <div class="platform">BILIBILI</div>
+            <div class="username">Pxz1148</div>
+            <div class="desc">视频内容、工具分享、个人创作记录</div>
+          </a>
+
+          <a class="social" href="https://github.com/pengxiangzhe" target="_blank">
+            <div class="platform">GITHUB</div>
+            <div class="username">KILL / pengxiangzhe</div>
+            <div class="desc">项目代码、网页部署、技术实验记录</div>
+          </a>
+
+          <a class="social" href="mailto:pxz1148205018@gmail.com">
+            <div class="platform">GOOGLE / EMAIL</div>
+            <div class="username">pxz1148205018@gmail.com</div>
+            <div class="desc">联系邮箱与账号入口</div>
+          </a>
         </div>
-        <p class="section-desc">
-          这里会持续沉淀我真正跑通过的内容。少讲空话，多讲方法；少堆概念，多给路径。
-        </p>
-      </div>
+      </section>
+    </main>
 
-      <div class="grid">
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">Direction</span>
-            <h3>AI 工具与自动化</h3>
-            <p>记录 Agent、AI 编程、自动化流程，以及如何把 AI 用到真实项目里。</p>
-          </div>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">Direction</span>
-            <h3>系统与软件优化</h3>
-            <p>记录 Windows、驱动、软件配置、性能问题和工具链维护经验。</p>
-          </div>
-        </article>
-
-        <article class="card reveal">
-          <div class="card-content">
-            <span class="index">Direction</span>
-            <h3>互联网技巧与资源判断</h3>
-            <p>记录搜索方法、下载避坑、网站使用技巧和高质量工具发现过程。</p>
-          </div>
-        </article>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <span>© <span id="year"></span> Pxz 的博客</span>
-    <span>Built for useful exploration.</span>
-  </footer>
-
-  <script>
-    const year = document.getElementById("year");
-    year.textContent = new Date().getFullYear();
-
-    const glow = document.getElementById("cursorGlow");
-    window.addEventListener("pointermove", (event) => {
-      glow.style.left = event.clientX + "px";
-      glow.style.top = event.clientY + "px";
-    });
-
-    const revealItems = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-
-    revealItems.forEach((item) => observer.observe(item));
-
-    document.querySelectorAll(".card").forEach((card) => {
-      card.addEventListener("pointermove", (event) => {
-        const rect = card.getBoundingClientRect();
-        const x = ((event.clientX - rect.left) / rect.width) * 100;
-        const y = ((event.clientY - rect.top) / rect.height) * 100;
-        card.style.setProperty("--x", x + "%");
-        card.style.setProperty("--y", y + "%");
-      });
-    });
-  </script>
+    <footer>
+      © 2026 PXZ. Built for focus, research and creation.
+    </footer>
+  </div>
 </body>
 </html>
