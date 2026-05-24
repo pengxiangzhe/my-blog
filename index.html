@@ -1,176 +1,547 @@
 <!doctype html>
 <html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta
+    name="description"
+    content="Pxz 的博客：记录 AI 工具、系统优化、软件折腾、信息搜索、网站搭建与真实项目成果。"
+  />
+  <title>Pxz 的博客</title>
 
-    <meta
-      name="description"
-      content="Pxz 的个人博客，分享 AI 工具、Windows 系统优化、软件折腾、网站技巧与互联网探索。"
-    />
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-    <title>Pxz 的博客</title>
+    html {
+      scroll-behavior: smooth;
+    }
 
-    <link rel="preconnect" href="https://cdn.jsdelivr.net" />
-    <link rel="preconnect" href="https://unpkg.com" />
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+      color: #f5f7fa;
+      background:
+        radial-gradient(circle at top left, rgba(72, 255, 204, 0.16), transparent 32rem),
+        radial-gradient(circle at bottom right, rgba(80, 130, 255, 0.12), transparent 34rem),
+        #080b10;
+      line-height: 1.7;
+    }
 
-    <link rel="stylesheet" href="css/styles.css" />
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
 
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js" defer></script>
-    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js" defer></script>
-    <script src="js/app.js" defer></script>
-  </head>
+    .page {
+      min-height: 100vh;
+      overflow: hidden;
+    }
 
-  <body>
-    <div class="noise" aria-hidden="true"></div>
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 22px 7vw;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      background: rgba(8, 11, 16, 0.78);
+      backdrop-filter: blur(18px);
+    }
 
-    <header class="site-header" data-animate>
-      <a class="brand" href="#home" aria-label="返回首页">
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 14px;
+      color: #08100d;
+      background: linear-gradient(135deg, #63ffd1, #ffe66b);
+      font-weight: 900;
+      box-shadow: 0 0 28px rgba(99, 255, 209, 0.35);
+    }
+
+    .site-nav {
+      display: flex;
+      gap: 24px;
+      color: #b8c0cc;
+      font-size: 15px;
+    }
+
+    .site-nav a:hover {
+      color: #63ffd1;
+    }
+
+    .hero {
+      position: relative;
+      padding: 92px 7vw 86px;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+      background-size: 42px 42px;
+      mask-image: linear-gradient(to bottom, black, transparent);
+      opacity: 0.45;
+    }
+
+    .hero-inner {
+      position: relative;
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 52px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: #63ffd1;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 820px;
+      font-size: clamp(44px, 7vw, 92px);
+      line-height: 0.95;
+      letter-spacing: -0.08em;
+    }
+
+    .hero-lede {
+      max-width: 720px;
+      margin: 28px 0 0;
+      color: #b7c0cc;
+      font-size: 20px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 34px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 0 22px;
+      border-radius: 999px;
+      font-weight: 800;
+      border: 1px solid rgba(255,255,255,0.14);
+    }
+
+    .button-primary {
+      color: #07100d;
+      background: linear-gradient(135deg, #63ffd1, #ffe66b);
+      box-shadow: 0 14px 40px rgba(99, 255, 209, 0.18);
+    }
+
+    .button-secondary {
+      color: #dce3ea;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .hero-panel {
+      padding: 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 30px;
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03));
+      box-shadow: 0 24px 90px rgba(0,0,0,0.35);
+    }
+
+    .terminal {
+      overflow: hidden;
+      border-radius: 22px;
+      background: #0c1118;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .terminal-top {
+      display: flex;
+      gap: 8px;
+      padding: 16px;
+      background: rgba(255,255,255,0.05);
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 99px;
+      background: #ff5f57;
+    }
+
+    .dot:nth-child(2) {
+      background: #ffbd2e;
+    }
+
+    .dot:nth-child(3) {
+      background: #28c840;
+    }
+
+    .terminal-body {
+      padding: 24px;
+      color: #dce3ea;
+      font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+      font-size: 15px;
+    }
+
+    .terminal-body p {
+      margin: 0 0 14px;
+    }
+
+    .prompt {
+      color: #63ffd1;
+    }
+
+    .section {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 86px 7vw;
+    }
+
+    .section-heading {
+      margin-bottom: 34px;
+    }
+
+    h2 {
+      margin: 0;
+      font-size: clamp(34px, 5vw, 72px);
+      line-height: 1;
+      letter-spacing: -0.06em;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+    }
+
+    .card {
+      min-height: 260px;
+      padding: 30px;
+      border-radius: 26px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.09), rgba(255,255,255,0.035));
+      box-shadow: 0 20px 70px rgba(0,0,0,0.25);
+    }
+
+    .card-label {
+      margin: 0 0 14px;
+      color: #ffd95a;
+      font-weight: 900;
+    }
+
+    .card h3 {
+      margin: 0;
+      font-size: 28px;
+      line-height: 1.18;
+      letter-spacing: -0.04em;
+    }
+
+    .card p {
+      margin: 18px 0 0;
+      color: #b9c1cc;
+      font-size: 17px;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .tag {
+      padding: 6px 12px;
+      border-radius: 999px;
+      color: #dce3ea;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 14px;
+    }
+
+    .about {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 32px;
+      align-items: start;
+    }
+
+    .about-box {
+      padding: 32px;
+      border-radius: 28px;
+      border: 1px solid rgba(255,255,255,0.12);
+      background: rgba(255,255,255,0.055);
+    }
+
+    .about-box p {
+      margin: 0;
+      color: #c1c9d4;
+      font-size: 18px;
+    }
+
+    .list {
+      display: grid;
+      gap: 14px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      padding: 18px 20px;
+      border-radius: 18px;
+      color: #dce3ea;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 30px 7vw;
+      color: #94a0ad;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    @media (max-width: 860px) {
+      .site-header {
+        padding: 18px 5vw;
+      }
+
+      .site-nav {
+        gap: 14px;
+        font-size: 14px;
+      }
+
+      .hero {
+        padding: 64px 5vw;
+      }
+
+      .hero-inner,
+      .about {
+        grid-template-columns: 1fr;
+      }
+
+      .cards {
+        grid-template-columns: 1fr;
+      }
+
+      .section {
+        padding: 64px 5vw;
+      }
+
+      .site-footer {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <header class="site-header">
+      <a class="brand" href="#home">
         <span class="brand-mark">P</span>
         <span>Pxz 的博客</span>
       </a>
 
-      <nav class="site-nav" aria-label="主导航">
+      <nav class="site-nav">
         <a href="#home">首页</a>
-        <a href="#posts">内容</a>
+        <a href="#work">成果</a>
         <a href="#about">关于</a>
       </nav>
     </header>
 
     <main>
-      <section id="home" class="hero" aria-labelledby="hero-title">
-        <canvas id="hero-canvas" aria-hidden="true"></canvas>
-
+      <section id="home" class="hero">
         <div class="hero-inner">
-          <div class="hero-copy" data-animate>
-            <p class="eyebrow">
-              AI / Windows / Internet / Tools
-            </p>
+          <div>
+            <p class="eyebrow">AI / Windows / Tools / Internet</p>
 
-            <h1 id="hero-title">
-              折腾软件、AI、系统与互联网，并把真正有用的东西分享出来。
+            <h1>
+              记录我折腾过、跑通过、真正有用的东西。
             </h1>
 
             <p class="hero-lede">
-              我是 Pxz。
-
-              我喜欢研究各种 AI 工具、Windows 系统优化、网站技巧、软件折腾和互联网玩法。
-
-              我擅长从海量信息中找到真正有效的解决方案，并把复杂问题拆解成普通人也能看懂的步骤。
+              我是 Pxz。这个博客主要记录 AI 工具、Agent 写代码、Windows 系统优化、软件折腾、网站搭建、
+              信息搜索和互联网技巧。我不想堆空话，只想把自己真正试过、踩过坑、跑通了的东西整理出来。
             </p>
 
             <div class="hero-actions">
-              <a class="primary-action" href="#posts">
-                <span>查看内容</span>
-                <i data-lucide="arrow-right"></i>
-              </a>
-
-              <a class="secondary-action" href="#about">
-                关于我
-              </a>
+              <a class="button button-primary" href="#work">看我折腾过什么</a>
+              <a class="button button-secondary" href="#about">我的核心能力</a>
             </div>
           </div>
 
-          <div class="hero-visual" data-animate">
-            <img
-              src="assets/hero-portrait.png"
-              alt="Pxz Blog Visual"
-            />
+          <div class="hero-panel">
+            <div class="terminal">
+              <div class="terminal-top">
+                <span class="dot"></span>
+                <span class="dot"></span>
+                <span class="dot"></span>
+              </div>
 
-            <div class="status-strip" aria-label="当前状态">
-              <span>Now</span>
-              <strong>Exploring useful things on the Internet.</strong>
+              <div class="terminal-body">
+                <p><span class="prompt">pxz@blog</span>：搜索线索</p>
+                <p><span class="prompt">pxz@blog</span>：对比方案</p>
+                <p><span class="prompt">pxz@blog</span>：反复试错</p>
+                <p><span class="prompt">pxz@blog</span>：跑通流程</p>
+                <p><span class="prompt">pxz@blog</span>：整理成别人能看懂的教程</p>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section id="posts" class="section-block" aria-labelledby="posts-title">
-        <div class="section-heading" data-animate>
-          <p class="eyebrow">CONTENT</p>
-
-          <h2 id="posts-title">
-            我的内容
-          </h2>
+      <section id="work" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">PXZ'S WORK</p>
+          <h2>我折腾过的东西和成果</h2>
         </div>
 
-        <div
-          id="post-list"
-          class="post-grid"
-          aria-live="polite"
-        ></div>
+        <div class="cards">
+          <article class="card">
+            <p class="card-label">01 / 网站搭建</p>
+            <h3>从零跑通 GitHub Pages，搭出自己的个人博客</h3>
+            <p>
+              从创建仓库、上传文件、配置 Pages、解决 404、重置部署，到最终上线，我完整跑通了一遍静态网站发布流程。
+            </p>
+            <div class="tags">
+              <span class="tag">GitHub</span>
+              <span class="tag">Pages</span>
+              <span class="tag">静态网站</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <p class="card-label">02 / AI 工具</p>
+            <h3>用 AI 和 Agent 辅助写代码、改网页、做项目</h3>
+            <p>
+              我正在把 AI 当成真正的执行工具，而不是聊天玩具：让它帮我生成页面、修改结构、解释报错、推进项目。
+            </p>
+            <div class="tags">
+              <span class="tag">AI</span>
+              <span class="tag">Agent</span>
+              <span class="tag">代码</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <p class="card-label">03 / 系统优化</p>
+            <h3>研究 Windows、NVIDIA App、软件设置和性能问题</h3>
+            <p>
+              我长期折腾 Windows、驱动、缓存、系统设置和各种软件配置，也做过用 NVIDIA App 设置解决笔记本卡顿的内容。
+            </p>
+            <div class="tags">
+              <span class="tag">Windows</span>
+              <span class="tag">NVIDIA</span>
+              <span class="tag">优化</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <p class="card-label">04 / 软件折腾</p>
+            <h3>研究 Telegram 搜索、Pixiv 热度搜索、油猴脚本和工具玩法</h3>
+            <p>
+              我喜欢顺着一个问题不断挖：找工具、看项目、试设置、换方案，直到把它变成一个可复用的方法。
+            </p>
+            <div class="tags">
+              <span class="tag">Telegram</span>
+              <span class="tag">Pixiv</span>
+              <span class="tag">脚本</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <p class="card-label">05 / 下载避坑</p>
+            <h3>总结如何避开假下载、捆绑安装和恶意按钮</h3>
+            <p>
+              我会关注普通人真正会踩的坑：比如软件下载按钮真假、安装包文件名、卸载残留、注册表清理和工具来源判断。
+            </p>
+            <div class="tags">
+              <span class="tag">安全</span>
+              <span class="tag">下载</span>
+              <span class="tag">避坑</span>
+            </div>
+          </article>
+
+          <article class="card">
+            <p class="card-label">06 / 信息搜索</p>
+            <h3>从海量信息里找到真正有效的解决方案</h3>
+            <p>
+              我最擅长的是搜索、判断、整合和试错。别人看到的是一堆杂乱信息，我更关心怎么找到能解决问题的那条线索。
+            </p>
+            <div class="tags">
+              <span class="tag">搜索</span>
+              <span class="tag">整合</span>
+              <span class="tag">解决问题</span>
+            </div>
+          </article>
+        </div>
       </section>
 
-      <section
-        id="post-view"
-        class="article-shell is-hidden"
-        aria-live="polite"
-        aria-labelledby="article-title"
-      >
-        <a class="back-link" href="#posts">
-          <i data-lucide="arrow-left"></i>
-          <span>返回内容列表</span>
-        </a>
-
-        <article class="article-content">
-          <p id="article-meta" class="article-meta"></p>
-
-          <h2 id="article-title"></h2>
-
-          <div id="article-body" class="markdown-body"></div>
-        </article>
-      </section>
-
-      <section
-        id="about"
-        class="section-block about-section"
-        aria-labelledby="about-title"
-      >
-        <div class="section-heading" data-animate>
-          <p class="eyebrow">ABOUT</p>
-
-          <h2 id="about-title">
-            关于我
-          </h2>
+      <section id="about" class="section">
+        <div class="section-heading">
+          <p class="eyebrow">ABOUT PXZ</p>
+          <h2>这个博客真正想写什么</h2>
         </div>
 
-        <div class="about-layout">
-          <p data-animate>
-            我长期研究：
-
-            <br /><br />
-
-            • AI 工具与自动化  
-            • Windows 与软件优化  
-            • 网站与互联网技巧  
-            • 高效率信息搜索  
-            • 各种实用工具折腾  
-
-            <br /><br />
-
-            这个博客会持续分享我真正研究过、实践过、能解决问题的内容。
-          </p>
-
-          <div class="about-links" data-animate">
-            <a
-              href="https://github.com/"
-              target="_blank"
-              rel="noreferrer"
-            >
-              <i data-lucide="github"></i>
-              <span>GitHub</span>
-            </a>
+        <div class="about">
+          <div class="about-box">
+            <p>
+              这个博客不是模板展示，也不是为了装成传统程序员。
+              它更像我的长期工作台：记录我亲自折腾过、验证过、能解决真实问题的东西。
+              我希望把复杂工具讲简单，把混乱信息整理清楚，把自己跑通的流程分享出来。
+            </p>
           </div>
+
+          <ul class="list">
+            <li>AI 工具、Agent、自动化和小项目实践</li>
+            <li>Windows、软件、驱动、缓存、卸载和系统优化</li>
+            <li>GitHub Pages、网站搭建、博客部署和前端基础</li>
+            <li>Telegram、Pixiv、YouTube、油猴脚本和互联网技巧</li>
+            <li>软件下载避坑、工具推荐、问题排查和效率提升</li>
+            <li>把复杂问题拆成普通人也能照着做的步骤</li>
+          </ul>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>
-        © <span id="year"></span> Pxz 的博客
-      </span>
-
+      <span>© <span id="year"></span> Pxz 的博客</span>
       <a href="#home">回到顶部</a>
     </footer>
-  </body>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
 </html>
