@@ -1,43 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PXZ 的博客</title>
-  <meta name="description" content="PXZ 的个人博客，记录软件工具、系统折腾、图形化界面、效率方案与内容创作。" />
+
+  <meta
+    name="description"
+    content="Pxz 的博客：记录 AI 工具、信息检索、系统优化、软件折腾、网站搭建与真实问题解决。"
+  />
+
+  <title>Pxz 的博客</title>
+
   <style>
     :root {
-      --bg: #0b0b0b;
-      --panel: #141414;
-      --panel-2: #1a1a1a;
-      --line: #2a2a2a;
-      --text: #f5f5f5;
-      --text-2: #b9b9b9;
-      --text-3: #8a8a8a;
-      --red: #d6001c;
-      --white: #ffffff;
-      --max: 1360px;
-      --radius: 18px;
-      --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      --bg: #040605;
+      --bg-2: #070b09;
+      --panel: rgba(12, 18, 16, 0.78);
+      --panel-2: rgba(15, 24, 21, 0.92);
+      --green: #39ff9c;
+      --green-dim: rgba(57, 255, 156, 0.15);
+      --red: #ff254f;
+      --red-dim: rgba(255, 37, 79, 0.18);
+      --red-strong: #ff003c;
+      --text: #f4faf6;
+      --muted: #9ca9a3;
+      --line: rgba(255, 255, 255, 0.1);
+      --line-green: rgba(57, 255, 156, 0.25);
+      --line-red: rgba(255, 37, 79, 0.3);
+      --shadow: 0 28px 110px rgba(0, 0, 0, 0.52);
+      --radius-xl: 34px;
+      --radius-lg: 26px;
+      --header-height: 82px;
     }
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
     }
 
     html {
       scroll-behavior: smooth;
+      scroll-padding-top: 96px;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
-        "Microsoft YaHei", sans-serif;
-      background: linear-gradient(180deg, #0a0a0a 0%, #0d0d0d 100%);
+      margin: 0;
+      min-height: 100vh;
+      font-family:
+        Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+        "Segoe UI", "Microsoft YaHei", sans-serif;
       color: var(--text);
-      line-height: 1.75;
+      background:
+        radial-gradient(circle at 12% 0%, rgba(57, 255, 156, 0.14), transparent 34rem),
+        radial-gradient(circle at 88% 12%, rgba(255, 37, 79, 0.2), transparent 34rem),
+        radial-gradient(circle at 50% 100%, rgba(57, 255, 156, 0.08), transparent 42rem),
+        var(--bg);
+      line-height: 1.7;
       overflow-x: hidden;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+      background-size: 44px 44px;
+      mask-image: linear-gradient(to bottom, black, rgba(0,0,0,0.32), transparent);
+      pointer-events: none;
+    }
+
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        repeating-linear-gradient(
+          0deg,
+          rgba(255,255,255,0.018) 0,
+          rgba(255,255,255,0.018) 1px,
+          transparent 1px,
+          transparent 5px
+        );
+      opacity: 0.32;
+      pointer-events: none;
+      mix-blend-mode: overlay;
     }
 
     a {
@@ -45,736 +94,1070 @@
       text-decoration: none;
     }
 
-    img {
-      display: block;
-      max-width: 100%;
+    .cursor-glow {
+      position: fixed;
+      left: 50%;
+      top: 50%;
+      width: 460px;
+      height: 460px;
+      border-radius: 999px;
+      background:
+        radial-gradient(circle, rgba(57, 255, 156, 0.13), transparent 58%);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: -2;
     }
 
-    ::selection {
-      background: var(--red);
-      color: #fff;
+    .red-beam {
+      position: fixed;
+      top: 0;
+      right: 8vw;
+      width: 2px;
+      height: 100vh;
+      background: linear-gradient(to bottom, transparent, var(--red), transparent);
+      opacity: 0.34;
+      z-index: -1;
+      box-shadow: 0 0 34px rgba(255, 37, 79, 0.65);
+      animation: beamPulse 3.6s ease-in-out infinite;
     }
 
-    .site-shell {
-      max-width: var(--max);
-      margin: 0 auto;
-      padding: 18px 20px 48px;
-    }
-
-    .topbar {
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 60;
+      height: var(--header-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 18px;
-      min-height: 74px;
-      padding: 0 18px;
-      background: rgba(20, 20, 20, 0.92);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      box-shadow: var(--shadow);
-      position: sticky;
-      top: 14px;
-      z-index: 50;
-      backdrop-filter: blur(8px);
+      padding: 0 7vw;
+      border-bottom: 1px solid var(--line);
+      background: rgba(4, 6, 5, 0.78);
+      backdrop-filter: blur(20px);
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 18px;
-      min-width: 0;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: 0.03em;
     }
 
-    .brand-title {
-      font-size: 22px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      white-space: nowrap;
+    .brand-mark {
+      position: relative;
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 15px;
+      color: #04100a;
+      background: linear-gradient(135deg, var(--green), #eafff3);
+      box-shadow:
+        0 0 28px rgba(57,255,156,0.42),
+        inset 0 0 16px rgba(255,255,255,0.38);
+      overflow: hidden;
     }
 
-    .brand-divider {
-      width: 1px;
-      height: 22px;
-      background: var(--line);
+    .brand-mark::after {
+      content: "";
+      position: absolute;
+      inset: -30%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.65), transparent);
+      transform: translateX(-100%);
+      animation: shine 4.8s ease-in-out infinite;
     }
 
-    .brand-sub {
-      color: var(--text-3);
-      font-size: 14px;
-      white-space: nowrap;
-    }
-
-    .top-social {
+    .nav {
       display: flex;
       align-items: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      gap: 28px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 800;
     }
 
-    .top-social a {
-      padding: 8px 12px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      background: #111;
-      color: var(--text-2);
-      font-size: 13px;
-      transition: 0.2s ease;
+    .nav a {
+      position: relative;
+      transition: color 0.22s ease;
     }
 
-    .top-social a:hover {
-      border-color: #4a4a4a;
-      color: var(--white);
-      transform: translateY(-1px);
+    .nav a::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: -10px;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, var(--green), var(--red));
+      transition: width 0.24s ease;
     }
 
-    .layout {
+    .nav a:hover,
+    .nav a.active {
+      color: var(--text);
+    }
+
+    .nav a:hover::before,
+    .nav a.active::before {
+      width: 100%;
+    }
+
+    section {
+      scroll-margin-top: 98px;
+    }
+
+    .hero {
+      min-height: calc(100vh - var(--header-height));
       display: grid;
-      grid-template-columns: 330px minmax(0, 1fr);
-      gap: 22px;
-      margin-top: 22px;
+      align-items: center;
+      padding: 88px 7vw 74px;
     }
 
-    .sidebar {
-      position: sticky;
-      top: 104px;
-      align-self: start;
+    .hero-grid {
+      max-width: 1280px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 58px;
+      align-items: center;
     }
 
-    .profile-card,
-    .panel {
-      background: linear-gradient(180deg, #181818 0%, #121212 100%);
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 22px;
+      padding: 8px 13px;
+      border: 1px solid var(--line-green);
+      border-radius: 999px;
+      color: var(--green);
+      background: rgba(57,255,156,0.07);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .kicker-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 99px;
+      background: var(--red);
+      box-shadow: 0 0 22px rgba(255, 37, 79, 0.9);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(48px, 7vw, 104px);
+      line-height: 0.92;
+      letter-spacing: -0.08em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff 0%, #d9ffe9 34%, var(--green) 58%, var(--red) 100%);
+      -webkit-background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      max-width: 760px;
+      margin: 30px 0 0;
+      color: #b6c3bd;
+      font-size: 19px;
+    }
+
+    .hero-desc strong {
+      color: #ffffff;
+      font-weight: 950;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      margin-top: 36px;
+    }
+
+    .btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 52px;
+      padding: 0 24px;
+      border-radius: 999px;
+      font-weight: 950;
       border: 1px solid var(--line);
-      border-radius: 22px;
+      transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      color: #03100a;
+      background: linear-gradient(135deg, var(--green), #eafff3);
+      box-shadow: 0 20px 58px rgba(57,255,156,0.22);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 26px 78px rgba(57,255,156,0.34);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: rgba(255,255,255,0.055);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--line-red);
+      background: rgba(255,37,79,0.09);
+      box-shadow: 0 20px 62px rgba(255,37,79,0.12);
+    }
+
+    .profile-frame {
+      position: relative;
+      border-radius: 38px;
+      padding: 18px;
+      background:
+        linear-gradient(145deg, rgba(57,255,156,0.18), rgba(255,37,79,0.16)),
+        rgba(255,255,255,0.045);
+      border: 1px solid rgba(255,255,255,0.13);
       box-shadow: var(--shadow);
+      overflow: hidden;
+      animation: floatCard 6s ease-in-out infinite;
+    }
+
+    .profile-frame::before {
+      content: "";
+      position: absolute;
+      inset: -2px;
+      background:
+        conic-gradient(
+          from 180deg,
+          transparent,
+          rgba(57,255,156,0.55),
+          transparent,
+          rgba(255,37,79,0.58),
+          transparent
+        );
+      opacity: 0.48;
+      animation: spin 8s linear infinite;
     }
 
     .profile-card {
+      position: relative;
+      z-index: 1;
       overflow: hidden;
-    }
-
-    .profile-top {
-      padding: 30px 24px 22px;
-      background: linear-gradient(180deg, #1a1a1a 0%, #121212 100%);
-      border-bottom: 1px solid var(--line);
+      border-radius: 30px;
+      background: #050706;
+      border: 1px solid rgba(255,255,255,0.09);
     }
 
     .avatar-box {
-      width: 220px;
-      height: 220px;
-      margin: 0 auto 22px;
-      border-radius: 22px;
+      position: relative;
+      aspect-ratio: 16 / 11.5;
       overflow: hidden;
-      border: 1px solid #303030;
-      background: #0f0f0f;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
     }
 
     .avatar-box img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-    }
-
-    .avatar-fallback {
-      width: 100%;
-      height: 100%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--red);
-      background: #101010;
-      letter-spacing: 4px;
-    }
-
-    .profile-name {
-      font-size: 34px;
-      line-height: 1.15;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
-      text-align: center;
-    }
-
-    .profile-handle {
-      text-align: center;
-      color: var(--text-2);
-      font-size: 15px;
-      margin-bottom: 12px;
-    }
-
-    .profile-intro {
-      text-align: center;
-      color: var(--text-3);
-      font-size: 14px;
-      max-width: 250px;
-      margin: 0 auto;
-    }
-
-    .profile-links {
-      padding: 18px 16px 20px;
-      display: grid;
-      gap: 10px;
-    }
-
-    .mini-link {
-      padding: 12px 14px;
-      background: #121212;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      font-size: 14px;
-      color: var(--text-2);
-      transition: 0.2s ease;
-    }
-
-    .mini-link:hover {
-      color: var(--white);
-      border-color: #454545;
-      background: #161616;
-    }
-
-    .mini-link strong {
-      color: var(--white);
-      font-weight: 600;
+      object-position: center;
       display: block;
-      margin-bottom: 2px;
+      filter: saturate(0.98) contrast(1.05) brightness(0.92);
+      transform: scale(1.035);
+      transition: transform 0.8s ease, filter 0.8s ease;
     }
 
-    .content {
-      min-width: 0;
-      display: grid;
-      gap: 22px;
+    .profile-frame:hover img {
+      transform: scale(1.085);
+      filter: saturate(1.12) contrast(1.08) brightness(1);
     }
 
-    .hero {
-      padding: 34px 34px 28px;
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero::before {
+    .avatar-box::after {
       content: "";
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(135deg, rgba(255,255,255,0.025), transparent 35%),
-        radial-gradient(circle at top right, rgba(214,0,28,0.12), transparent 30%);
-      pointer-events: none;
+        linear-gradient(to top, rgba(5,7,6,0.96), rgba(5,7,6,0.18), transparent),
+        linear-gradient(135deg, rgba(57,255,156,0.2), transparent 38%),
+        linear-gradient(45deg, transparent 58%, rgba(255,37,79,0.22));
     }
 
-    .hero-inner {
+    .avatar-title {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 24px;
+      z-index: 2;
+    }
+
+    .avatar-title p {
+      margin: 0;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .avatar-title h2 {
+      margin: 8px 0 0;
+      font-size: clamp(30px, 4vw, 52px);
+      line-height: 0.96;
+      letter-spacing: -0.07em;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background: rgba(255,255,255,0.08);
+      gap: 1px;
+    }
+
+    .profile-stats div {
+      padding: 18px;
+      background: rgba(7, 12, 10, 0.95);
+    }
+
+    .profile-stats span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .profile-stats strong {
+      font-size: 14px;
+    }
+
+    .section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 88px 7vw;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 1fr 0.7fr;
+      gap: 30px;
+      align-items: end;
+      margin-bottom: 36px;
+    }
+
+    .eyebrow {
+      margin: 0 0 12px;
+      color: var(--green);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.19em;
+      text-transform: uppercase;
+    }
+
+    .section-title {
+      margin: 0;
+      font-size: clamp(36px, 5vw, 76px);
+      line-height: 0.98;
+      letter-spacing: -0.07em;
+    }
+
+    .section-desc {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .bento {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr 0.9fr;
+      gap: 18px;
+    }
+
+    .card {
+      position: relative;
+      min-height: 300px;
+      padding: 28px;
+      border-radius: var(--radius-lg);
+      background:
+        linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.028));
+      border: 1px solid rgba(255,255,255,0.11);
+      overflow: hidden;
+      box-shadow: 0 18px 70px rgba(0,0,0,0.26);
+      transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .card.large {
+      grid-row: span 2;
+      min-height: 620px;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at var(--x, 20%) var(--y, 20%), rgba(57,255,156,0.2), transparent 25rem),
+        radial-gradient(circle at 100% 0%, rgba(255,37,79,0.17), transparent 19rem);
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom, var(--green), var(--red));
+      opacity: 0.72;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,37,79,0.34);
+      background:
+        linear-gradient(145deg, rgba(57,255,156,0.08), rgba(255,37,79,0.065));
+      box-shadow: 0 28px 92px rgba(0,0,0,0.36);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-content {
       position: relative;
       z-index: 1;
     }
 
-    .eyebrow {
+    .index {
       display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      color: var(--text-3);
-      font-size: 13px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
       margin-bottom: 18px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 36px;
-      height: 1px;
-      background: var(--red);
-    }
-
-    .hero h1 {
-      font-size: clamp(34px, 4vw, 62px);
-      line-height: 1.08;
-      letter-spacing: -1.5px;
-      font-weight: 650;
-      margin-bottom: 16px;
-      max-width: 880px;
-    }
-
-    .accent {
       color: var(--red);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
     }
 
-    .hero-desc {
-      max-width: 920px;
-      color: var(--text-2);
-      font-size: 17px;
-      margin-bottom: 26px;
+    .card h3 {
+      margin: 0;
+      font-size: 27px;
+      line-height: 1.15;
+      letter-spacing: -0.045em;
     }
 
-    .hero-meta {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
+    .card.large h3 {
+      font-size: clamp(34px, 4vw, 56px);
+      line-height: 0.98;
     }
 
-    .meta-chip {
-      padding: 10px 14px;
-      border: 1px solid var(--line);
-      border-radius: 999px;
-      font-size: 13px;
-      color: var(--text-2);
-      background: rgba(255,255,255,0.02);
-    }
-
-    .section {
-      padding: 28px 30px 30px;
-    }
-
-    .section-head {
-      display: flex;
-      align-items: end;
-      justify-content: space-between;
-      gap: 14px;
-      margin-bottom: 20px;
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--line);
-    }
-
-    .section-title {
-      font-size: 28px;
-      line-height: 1.2;
-      font-weight: 650;
-      letter-spacing: -0.5px;
-    }
-
-    .section-note {
-      color: var(--text-3);
-      font-size: 13px;
-      white-space: nowrap;
-    }
-
-    .intro-text {
-      color: var(--text-2);
+    .card p {
+      margin: 18px 0 0;
+      color: #b8c5bf;
       font-size: 16px;
     }
 
-    .intro-text p + p {
-      margin-top: 14px;
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 24px;
     }
 
-    .grid-2 {
+    .tag {
+      padding: 7px 11px;
+      border-radius: 999px;
+      color: #e5eee9;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.1);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .red-tag {
+      color: #ffd6de;
+      background: rgba(255,37,79,0.16);
+      border-color: rgba(255,37,79,0.28);
+    }
+
+    .method-grid {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 16px;
+      grid-template-columns: 0.92fr 1.08fr;
+      gap: 22px;
     }
 
-    .item-card {
-      background: #141414;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      padding: 18px 18px 16px;
-      transition: 0.2s ease;
+    .method-panel {
+      padding: 34px;
+      border-radius: var(--radius-xl);
+      background:
+        linear-gradient(145deg, rgba(255,37,79,0.12), rgba(57,255,156,0.06)),
+        var(--panel-2);
+      border: 1px solid rgba(255,255,255,0.11);
+      box-shadow: var(--shadow);
     }
 
-    .item-card:hover {
-      border-color: #404040;
-      background: #171717;
+    .method-panel h3 {
+      margin: 0;
+      font-size: clamp(32px, 4vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -0.065em;
     }
 
-    .item-index {
-      font-size: 12px;
-      color: var(--red);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      margin-bottom: 10px;
-      font-weight: 700;
+    .method-panel p {
+      margin: 20px 0 0;
+      color: var(--muted);
     }
 
-    .item-card h3 {
-      font-size: 20px;
-      margin-bottom: 8px;
-      font-weight: 620;
-      line-height: 1.35;
+    .quote {
+      margin-top: 24px;
+      padding: 22px;
+      border-left: 4px solid var(--red);
+      border-radius: 18px;
+      color: #fff2f5;
+      background: rgba(255,37,79,0.12);
+      font-weight: 950;
+      font-size: 18px;
     }
 
-    .item-card p {
-      color: var(--text-2);
-      font-size: 14px;
-    }
-
-    .project-list {
+    .steps {
       display: grid;
       gap: 12px;
     }
 
-    .project {
+    .step {
       display: grid;
-      grid-template-columns: 110px 1fr;
-      gap: 18px;
-      align-items: start;
-      padding: 16px 0;
-      border-bottom: 1px solid #242424;
-    }
-
-    .project:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .project-tag {
-      color: var(--text-3);
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding-top: 2px;
-    }
-
-    .project-body h3 {
-      font-size: 18px;
-      font-weight: 620;
-      margin-bottom: 6px;
-      line-height: 1.35;
-    }
-
-    .project-body p {
-      color: var(--text-2);
-      font-size: 14px;
-    }
-
-    .social-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-
-    .social-card {
-      background: #141414;
-      border: 1px solid var(--line);
-      border-radius: 16px;
+      grid-template-columns: 50px 1fr;
+      gap: 15px;
       padding: 18px;
-      transition: 0.2s ease;
+      border-radius: 20px;
+      background: rgba(255,255,255,0.055);
+      border: 1px solid rgba(255,255,255,0.09);
+      transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
     }
 
-    .social-card:hover {
-      border-color: #404040;
-      background: #171717;
+    .step:hover {
+      transform: translateX(7px);
+      border-color: rgba(255,37,79,0.34);
+      background: rgba(255,37,79,0.07);
     }
 
-    .social-platform {
-      color: var(--text-3);
-      font-size: 12px;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 8px;
+    .step-num {
+      display: grid;
+      place-items: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 15px;
+      color: #03100a;
+      background: var(--green);
+      font-weight: 950;
+      box-shadow: 0 0 20px rgba(57,255,156,0.25);
     }
 
-    .social-user {
-      font-size: 20px;
-      font-weight: 620;
-      margin-bottom: 6px;
-      word-break: break-all;
+    .step strong {
+      display: block;
+      margin-bottom: 4px;
     }
 
-    .social-desc {
+    .step span {
+      color: var(--muted);
       font-size: 14px;
-      color: var(--text-2);
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .about-block {
+      padding: 30px;
+      border-radius: var(--radius-lg);
+      background: var(--panel);
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .about-block h3 {
+      margin: 0 0 14px;
+      font-size: 28px;
+      letter-spacing: -0.04em;
+    }
+
+    .about-block p {
+      margin: 0;
+      color: var(--muted);
     }
 
     .footer {
-      margin-top: 20px;
-      padding: 18px 4px 0;
-      color: var(--text-3);
-      font-size: 13px;
-      text-align: right;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 44px 7vw;
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.08);
     }
 
-    @media (max-width: 1100px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
 
-      .sidebar {
-        position: static;
-      }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
-      .profile-top {
-        padding: 26px 20px 20px;
+    @keyframes shine {
+      0%, 70% {
+        transform: translateX(-120%);
       }
-
-      .avatar-box {
-        width: 180px;
-        height: 180px;
+      100% {
+        transform: translateX(120%);
       }
     }
 
-    @media (max-width: 760px) {
-      .site-shell {
-        padding: 14px 12px 34px;
+    @keyframes floatCard {
+      0%, 100% {
+        transform: translateY(0);
       }
-
-      .topbar {
-        padding: 14px;
-        border-radius: 16px;
-        flex-direction: column;
-        align-items: flex-start;
+      50% {
+        transform: translateY(-12px);
       }
+    }
 
-      .brand {
-        flex-wrap: wrap;
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
       }
+    }
 
-      .brand-divider {
-        display: none;
+    @keyframes beamPulse {
+      0%, 100% {
+        opacity: 0.18;
       }
-
-      .top-social {
-        justify-content: flex-start;
+      50% {
+        opacity: 0.5;
       }
+    }
 
-      .hero,
-      .section {
-        padding: 22px 18px;
-      }
-
-      .hero h1 {
-        font-size: 32px;
-      }
-
-      .grid-2,
-      .social-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .project {
-        grid-template-columns: 1fr;
-        gap: 8px;
-      }
-
+    @media (max-width: 1080px) {
+      .hero-grid,
+      .method-grid,
       .section-head {
-        flex-direction: column;
-        align-items: flex-start;
+        grid-template-columns: 1fr;
       }
 
-      .section-note {
-        white-space: normal;
+      .bento {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .card.large {
+        grid-row: auto;
+        grid-column: span 2;
+        min-height: 380px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      :root {
+        --header-height: 74px;
+      }
+
+      .site-header {
+        padding: 0 5vw;
+      }
+
+      .nav {
+        gap: 13px;
+        font-size: 13px;
+      }
+
+      .hero {
+        padding: 58px 5vw 54px;
+      }
+
+      .section {
+        padding: 64px 5vw;
+      }
+
+      .bento,
+      .about-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .card.large {
+        grid-column: auto;
+      }
+
+      .profile-stats {
+        grid-template-columns: 1fr;
+      }
+
+      .footer {
+        flex-direction: column;
+        padding: 34px 5vw;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="site-shell">
-    <header class="topbar">
-      <div class="brand">
-        <div class="brand-title">PXZ</div>
-        <div class="brand-divider"></div>
-        <div class="brand-sub">个人博客 · 软件 / 系统 / 工具 / 内容研究</div>
+  <div class="cursor-glow" id="cursorGlow"></div>
+  <div class="red-beam" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#home">
+      <span class="brand-mark">P</span>
+      <span>Pxz 的博客</span>
+    </a>
+
+    <nav class="nav" aria-label="主导航">
+      <a href="#home">首页</a>
+      <a href="#work">实践</a>
+      <a href="#method">方法</a>
+      <a href="#about">关于我</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="home" class="hero">
+      <div class="hero-grid">
+        <div class="reveal">
+          <div class="kicker">
+            <span class="kicker-dot"></span>
+            AI · 系统 · 工具 · 信息检索
+          </div>
+
+          <h1>
+            把复杂问题拆开，
+            <span class="gradient-text">直到它能被解决。</span>
+          </h1>
+
+          <p class="hero-desc">
+            我是 <strong>Pxz</strong>。这里记录我亲自验证过的工具、系统、网站和 AI 工作流。
+            我关注的不是抽象概念，而是一个问题如何定位、如何验证、如何跑通，以及如何整理成别人也能复用的方法。
+          </p>
+
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#work">查看实践方向</a>
+            <a class="btn btn-secondary" href="#method">理解我的方法</a>
+          </div>
+        </div>
+
+        <aside class="profile-frame reveal" aria-label="Pxz 头像">
+          <div class="profile-card">
+            <div class="avatar-box">
+              <img src="assets/avatar.jpg" alt="Pxz 的头像" />
+
+              <div class="avatar-title">
+                <p>PXZ BLOG</p>
+                <h2>折腾、验证、沉淀。</h2>
+              </div>
+            </div>
+
+            <div class="profile-stats">
+              <div>
+                <span>Focus</span>
+                <strong>AI 工具链</strong>
+              </div>
+              <div>
+                <span>Core</span>
+                <strong>信息检索</strong>
+              </div>
+              <div>
+                <span>Output</span>
+                <strong>实用教程</strong>
+              </div>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="work" class="section">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">Verified Practice</p>
+          <h2 class="section-title">我真正关注的方向</h2>
+        </div>
+
+        <p class="section-desc">
+          这里不放模板文章，也不堆无意义概念。每一项都来自我长期折腾、搜索、验证和整理的真实方向。
+        </p>
       </div>
 
-      <nav class="top-social">
-        <a href="#social">社交账号</a>
-        <a href="#projects">代表内容</a>
-        <a href="#about">关于我</a>
-      </nav>
-    </header>
+      <div class="bento">
+        <article class="card large reveal">
+          <div class="card-content">
+            <span class="index">01 / Core Ability</span>
+            <h3>从混乱信息里找到真正有效的解决方案</h3>
+            <p>
+              我的核心能力不是背知识，而是搜索、判断、整合和试错。
+              面对一个陌生问题，我会顺着线索查资料、对比来源、验证方案、排除无效路径，直到它变成一个清晰可执行的流程。
+            </p>
 
-    <div class="layout">
-      <aside class="sidebar">
-        <div class="profile-card">
-          <div class="profile-top">
-            <div class="avatar-box">
-              <img src="avatar.jpg" alt="PXZ 头像"
-                   onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-              <div class="avatar-fallback">PXZ</div>
-            </div>
-
-            <div class="profile-name">PXZ</div>
-            <div class="profile-handle">@loserfast42</div>
-            <div class="profile-intro">
-              关注软件工具、系统设置、图形化界面与效率方案，
-              也持续记录自己的内容创作与实战经验。
+            <div class="tags">
+              <span class="tag">信息检索</span>
+              <span class="tag">方案判断</span>
+              <span class="tag red-tag">问题解决</span>
+              <span class="tag">流程整理</span>
             </div>
           </div>
+        </article>
 
-          <div class="profile-links">
-            <a class="mini-link" href="#about">
-              <strong>定位</strong>
-              问题拆解 / 工具研究 / 经验输出
-            </a>
-            <a class="mini-link" href="#ability">
-              <strong>核心方向</strong>
-              系统折腾、工具验证、内容表达
-            </a>
-            <a class="mini-link" href="#social">
-              <strong>社交媒体</strong>
-              Bilibili / YouTube / GitHub / Email
-            </a>
+        <article class="card reveal">
+          <div class="card-content">
+            <span class="index">02 / AI Workflow</span>
+            <h3>用 AI 和 Agent 推进真实项目</h3>
+            <p>
+              我正在把 AI 当成执行工具：写页面、改结构、解释报错、拆解任务，把想法推进成能运行的作品。
+            </p>
+
+            <div class="tags">
+              <span class="tag">AI 编程</span>
+              <span class="tag">Agent</span>
+              <span class="tag red-tag">项目执行</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-content">
+            <span class="index">03 / Web Publishing</span>
+            <h3>搭建个人博客并完成静态网站发布</h3>
+            <p>
+              我完整跑通了从仓库创建、文件上传、页面修改、部署排错到网站上线的流程。
+            </p>
+
+            <div class="tags">
+              <span class="tag">GitHub</span>
+              <span class="tag">Pages</span>
+              <span class="tag">网站部署</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-content">
+            <span class="index">04 / Software Research</span>
+            <h3>研究软件、脚本、搜索工具和使用限制</h3>
+            <p>
+              包括 Telegram 搜索工具、Pixiv 热度搜索、油猴脚本、安卓端限制和各种工具替代方案。
+            </p>
+
+            <div class="tags">
+              <span class="tag">Telegram</span>
+              <span class="tag">Pixiv</span>
+              <span class="tag">脚本</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card reveal">
+          <div class="card-content">
+            <span class="index">05 / System & Tools</span>
+            <h3>折腾 Windows、软件配置和效率工具</h3>
+            <p>
+              我关注图形界面、系统设置、工具链维护、卸载清理、文件定位和软件使用体验。
+            </p>
+
+            <div class="tags">
+              <span class="tag">Windows</span>
+              <span class="tag">工具链</span>
+              <span class="tag red-tag">效率优化</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="method" class="section">
+      <div class="method-grid">
+        <div class="method-panel reveal">
+          <p class="eyebrow">Method</p>
+
+          <h3>
+            我的优势不是运气，而是一套可重复的问题处理流程。
+          </h3>
+
+          <p>
+            我不会满足于“看起来有用”。我更关心它能否复现、能否解释、能否被别人照着做。
+            所以我记录的不只是结果，也包括判断过程和排错路径。
+          </p>
+
+          <div class="quote">
+            搜索不是复制答案，而是把线索组织成解决方案。
           </div>
         </div>
-      </aside>
 
-      <main class="content">
-        <section class="panel hero">
-          <div class="hero-inner">
-            <div class="eyebrow">PXZ / Personal Research Log</div>
-            <h1>
-              我更在意的不是“会不会用”，<br>
-              而是能不能把一个问题<span class="accent">真正解决</span>。
-            </h1>
-            <div class="hero-desc">
-              这个站点用来集中展示我长期关注的方向：软件工具、系统优化、图形化界面、效率方案，以及把复杂问题整理成可以直接复用的内容。
-              我做的事情并不神秘，本质上只有一件：在混乱的信息里找到路径，然后把结果讲清楚。
-            </div>
-            <div class="hero-meta">
-              <div class="meta-chip">系统设置与排障</div>
-              <div class="meta-chip">软件工具研究</div>
-              <div class="meta-chip">内容创作与教程表达</div>
-              <div class="meta-chip">个人经验沉淀</div>
+        <div class="steps reveal">
+          <div class="step">
+            <div class="step-num">1</div>
+            <div>
+              <strong>定位问题</strong>
+              <span>先确认问题真正发生在哪里，避免盲目尝试。</span>
             </div>
           </div>
-        </section>
 
-        <section class="panel section" id="about">
-          <div class="section-head">
-            <h2 class="section-title">关于我</h2>
-            <div class="section-note">About</div>
-          </div>
-          <div class="intro-text">
-            <p>
-              我擅长的并不是某一个单点技能，而是一整套解决问题的过程：检索、筛选、验证、排错、复盘，再把这些内容转化成别人也能立刻用上的方案。
-            </p>
-            <p>
-              我长期折腾 Windows、软件设置、浏览器插件、图形化界面、剪辑流程、网站工具和各类效率方案。很多在别人看来“只是卡住了”的问题，在我这里都会被拆成一个个可测试、可复现、可修正的环节。
-            </p>
-            <p>
-              所以这个博客不是单纯的展示页，而是我把自己的经验、能力和作品整理出来的地方。
-            </p>
-          </div>
-        </section>
-
-        <section class="panel section" id="ability">
-          <div class="section-head">
-            <h2 class="section-title">核心方向</h2>
-            <div class="section-note">Core Ability</div>
+          <div class="step">
+            <div class="step-num">2</div>
+            <div>
+              <strong>搜索线索</strong>
+              <span>用不同关键词、平台和来源寻找可能有效的信息。</span>
+            </div>
           </div>
 
-          <div class="grid-2">
-            <article class="item-card">
-              <div class="item-index">01 / Research</div>
-              <h3>信息检索与问题追踪</h3>
-              <p>
-                面对陌生问题时，我会沿着关键词、报错提示、界面细节、社区反馈与实际结果不断缩小范围，直到找到有效路径。
-              </p>
-            </article>
-
-            <article class="item-card">
-              <div class="item-index">02 / System</div>
-              <h3>系统设置与图形化界面</h3>
-              <p>
-                我对 Windows、软件界面、功能逻辑、使用路径和设置结构非常敏感，很多效率提升其实都来自对界面的深度理解。
-              </p>
-            </article>
-
-            <article class="item-card">
-              <div class="item-index">03 / Tools</div>
-              <h3>工具验证与方案筛选</h3>
-              <p>
-                我不太相信“看起来很好用”，更在意一个工具是否真的稳定、清晰、可落地，是否值得推荐给别人。
-              </p>
-            </article>
-
-            <article class="item-card">
-              <div class="item-index">04 / Output</div>
-              <h3>把经验转成可复用内容</h3>
-              <p>
-                我希望把自己的折腾结果整理成教程、视频或记录，降低别人的学习成本，让复杂过程变成清晰步骤。
-              </p>
-            </article>
-          </div>
-        </section>
-
-        <section class="panel section" id="projects">
-          <div class="section-head">
-            <h2 class="section-title">代表内容</h2>
-            <div class="section-note">Selected Works</div>
+          <div class="step">
+            <div class="step-num">3</div>
+            <div>
+              <strong>交叉判断</strong>
+              <span>对比多个方案，排除过期教程、营销内容和无效路径。</span>
+            </div>
           </div>
 
-          <div class="project-list">
-            <article class="project">
-              <div class="project-tag">Case 01</div>
-              <div class="project-body">
-                <h3>NVIDIA App 修改方案：解决笔记本卡顿问题</h3>
-                <p>
-                  从实际使用出发，研究设置项与运行表现之间的关系，整理出更直接、更可执行的解决路径。
-                </p>
-              </div>
-            </article>
-
-            <article class="project">
-              <div class="project-tag">Case 02</div>
-              <div class="project-body">
-                <h3>Pixiv 全平台优化方案</h3>
-                <p>
-                  围绕搜索体验、热度排序、移动端访问与工具方案做过多轮整理，核心目标是提升使用效率与内容获取质量。
-                </p>
-              </div>
-            </article>
-
-            <article class="project">
-              <div class="project-tag">Case 03</div>
-              <div class="project-body">
-                <h3>Telegram 搜索工具与信息获取方案</h3>
-                <p>
-                  针对检索路径、资源组织与实际体验做系统化梳理，把分散信息整合成相对清晰的使用方法。
-                </p>
-              </div>
-            </article>
-
-            <article class="project">
-              <div class="project-tag">Case 04</div>
-              <div class="project-body">
-                <h3>博客搭建与网页部署实践</h3>
-                <p>
-                  从页面结构、样式组织到 GitHub Pages 部署，逐步把个人表达从内容平台延伸到可长期维护的独立站点。
-                </p>
-              </div>
-            </article>
-          </div>
-        </section>
-
-        <section class="panel section" id="social">
-          <div class="section-head">
-            <h2 class="section-title">社交账号</h2>
-            <div class="section-note">Social Media</div>
+          <div class="step">
+            <div class="step-num">4</div>
+            <div>
+              <strong>动手验证</strong>
+              <span>真正运行、测试、排错，而不是停留在收藏和猜测。</span>
+            </div>
           </div>
 
-          <div class="social-grid">
-            <a class="social-card" href="https://space.bilibili.com/1925680440" target="_blank">
-              <div class="social-platform">Bilibili</div>
-              <div class="social-user">Pxz1148</div>
-              <div class="social-desc">视频内容、工具分享、个人创作记录</div>
-            </a>
-
-            <a class="social-card" href="https://www.youtube.com/@" target="_blank">
-              <div class="social-platform">YouTube</div>
-              <div class="social-user">@loserfast42</div>
-              <div class="social-desc">账号用户名展示，可后续替换为具体频道链接</div>
-            </a>
-
-            <a class="social-card" href="https://github.com/pengxiangzhe" target="_blank">
-              <div class="social-platform">GitHub</div>
-              <div class="social-user">pengxiangzhe</div>
-              <div class="social-desc">项目代码、网页部署与技术实验记录</div>
-            </a>
-
-            <a class="social-card" href="mailto:pxz1148205018@gmail.com">
-              <div class="social-platform">Email</div>
-              <div class="social-user">pxz1148205018@gmail.com</div>
-              <div class="social-desc">联系邮箱</div>
-            </a>
+          <div class="step">
+            <div class="step-num">5</div>
+            <div>
+              <strong>整理输出</strong>
+              <span>把复杂过程压缩成清晰步骤，降低后来者的学习成本。</span>
+            </div>
           </div>
-        </section>
-
-        <div class="footer">
-          © 2026 PXZ · Built for clarity, utility and long-term work.
         </div>
-      </main>
-    </div>
-  </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="section-head reveal">
+        <div>
+          <p class="eyebrow">About Pxz</p>
+          <h2 class="section-title">关于我</h2>
+        </div>
+
+        <p class="section-desc">
+          这个博客不是为了展示模板，而是我的长期工作台：记录实践、沉淀方法、输出可复用的解决方案。
+        </p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-block reveal">
+          <h3>我擅长什么</h3>
+          <p>
+            我擅长在复杂、零散、真假混杂的信息里找到有效线索，并通过持续试错把它转化成具体方案。
+            对我来说，工具不是重点，真正重要的是解决问题的路径。
+          </p>
+        </div>
+
+        <div class="about-block reveal">
+          <h3>我会写什么</h3>
+          <p>
+            我会记录 AI 工具、自动化、网站搭建、Windows 与软件优化、互联网技巧、下载避坑、脚本工具和真实项目实践。
+            内容会尽量简洁、明确、能直接使用。
+          </p>
+        </div>
+
+        <div class="about-block reveal">
+          <h3>我的内容标准</h3>
+          <p>
+            没试过的东西不装懂，没跑通的流程不硬写。能解决问题、能复现、能让别人少走弯路，才值得留下。
+          </p>
+        </div>
+
+        <div class="about-block reveal">
+          <h3>这个博客的目标</h3>
+          <p>
+            把复杂工具讲简单，把混乱信息整理清楚，把个人折腾经验变成别人也能理解和使用的方法。
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>© <span id="year"></span> Pxz 的博客</span>
+    <span>Built for useful exploration.</span>
+  </footer>
+
+  <script>
+    const year = document.getElementById("year");
+    year.textContent = new Date().getFullYear();
+
+    const glow = document.getElementById("cursorGlow");
+
+    window.addEventListener("pointermove", (event) => {
+      glow.style.left = event.clientX + "px";
+      glow.style.top = event.clientY + "px";
+    });
+
+    const revealItems = document.querySelectorAll(".reveal");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry, index) => {
+          if (entry.isIntersecting) {
+            entry.target.style.transitionDelay = `${Math.min(index * 70, 260)}ms`;
+            entry.target.classList.add("visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.12 }
+    );
+
+    revealItems.forEach((item) => observer.observe(item));
+
+    document.querySelectorAll(".card").forEach((card) => {
+      card.addEventListener("pointermove", (event) => {
+        const rect = card.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+        card.style.setProperty("--x", x + "%");
+        card.style.setProperty("--y", y + "%");
+      });
+    });
+
+    const sections = [...document.querySelectorAll("section[id]")];
+    const navLinks = [...document.querySelectorAll(".nav a")];
+
+    const activeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          navLinks.forEach((link) => link.classList.remove("active"));
+
+          const activeLink = document.querySelector(`.nav a[href="#${entry.target.id}"]`);
+          if (activeLink) activeLink.classList.add("active");
+        });
+      },
+      {
+        rootMargin: "-35% 0px -55% 0px",
+        threshold: 0
+      }
+    );
+
+    sections.forEach((section) => activeObserver.observe(section));
+  </script>
 </body>
 </html>
