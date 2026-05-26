@@ -605,3 +605,7 @@ svg {
     transition-duration: 0.01ms !important;
   }
 }
+
+.email-red {
+  color: #ff2d55;
+}
