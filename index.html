@@ -164,11 +164,18 @@
     }
 
     .profile-email {
-      color: white;
       font-size: 16px;
       font-weight: 600;
       margin-bottom: 20px;
       padding: 10px 0;
+    }
+
+    .email-label {
+      color: white;
+    }
+
+    .email-red {
+      color: var(--accent);
     }
 
     .profile-social {
@@ -339,9 +346,9 @@
         <h1>PXZ</h1>
         <div class="profile-handle">@loserfast42</div>
         <div class="profile-email">
-  联系我：
-  <span class="email-red">pxz1148205018@gmail.com</span>
-</div>
+          <span class="email-label">联系我：</span>
+          <span class="email-red">pxz1148205018@gmail.com</span>
+        </div>
 
         <div class="profile-social" id="social">
           <a href="https://space.bilibili.com/1925680440" target="_blank">Bilibili</a>
@@ -359,7 +366,7 @@
           <div class="project-tag">Project 01</div>
           <h3>SnapPaste</h3>
           <p>
-            SnapPaste 是一个轻量级 Windows 托盘工具，用于解决 `Win + Shift + S` 截图后的一个系统漏洞： 截图后，图片虽然可以直接粘贴到聊天框、文档等支持图片输入的地方，但无法在桌面或文件资源管理器中通过 `Ctrl + V` 直接粘贴为图片文件。
+            SnapPaste 是一个轻量级 Windows 托盘工具，用于解决 `Win + Shift + S` 截图后的一个系统漏洞： 截图后，图片虽然可以直接粘贴到聊天框、文档等支持的应用中，但是无法从剪贴板中复制出来，导致很多场景下无法使用。[...]
           </p>
           <div class="project-links">
             <a href="https://github.com/pengxiangzhe/SnapPaste" target="_blank">GitHub 仓库</a>
