@@ -606,6 +606,14 @@ svg {
   }
 }
 
+.profile-email {
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  padding: 10px 0;
+}
+
 .email-red {
   color: #ff2d55;
 }
